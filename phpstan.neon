@@ -1,0 +1,5 @@
+parameters:
+	doctrine:
+		objectManagerLoader: config/object-manager.php
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false

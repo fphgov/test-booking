@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style>
+            body, p {
+                font-family: 'Arial';
+                font-weight: normal;
+                font-size: 12px;
+            }
+
+            p {
+                line-height: 12x;
+            }
+
+            b, strong {
+                font-weight: bold;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .human-id {
+                position: fixed;
+
+                right: 0cm;
+                top: 0cm;
+
+                font-size: 32px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .policy-text {
+                font-size: 10px;
+                line-height: 10x;
+                text-align: justify;
+            }
+
+            #humanId {
+                position: fixed;
+
+                bottom:   0cm;
+                left:     0cm;
+
+                z-index:  -1000;
+            }
+
+            .page_break { page-break-before: always; }
+        </style>
+    </head>
+
+    <body>
+        <h1 class="center">ADATFELVÉTELI LAP</h1>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 16px;margin-top: 10px;margin-bottom: 10px;">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td><div class="human-id"><?=$humanID;?></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="text-align: center;">SARS-CoV-2 antigén gyorsteszt önkéntes vizsgálathoz.</p>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 14px;">
+            <tr>
+                <td>A vizsgálat előjegyzett időpontja:</td>
+                <td style="font-size: 14px;"><b><?=$time;?></b></td>
+                <td style="text-align: right;">A vizsgálat helye:</td>
+                <td style="text-align: right;font-size: 14px"><b><?=$place;?></b></td>
+            </tr>
+        </table>
+
+        <div class="height: 12px;">&nbsp;</div>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 14px;">
+            <tr>
+                <td width="50">Név</td>
+                <td style="font-size: 14px;"><b><?=$fullName;?></b></td>
+                <td>Születési hely, dátum</td>
+                <td style="font-size: 14px;"><b><?=$birthPlace;?>, <?=$birthday;?></b></td>
+            </tr>
+            <tr>
+                <td width="50">TAJ-szám</td>
+                <td style="font-size: 14px;"><b><?=$taj;?></b></td>
+                <td>Telefonszám</td>
+                <td style="font-size: 14px;"><b>+<?=$phone;?></b></td>
+            </tr>
+            <tr>
+                <td width="50">E-mail</td>
+                <td style="font-size: 14px;"><b><?=$email;?></b></td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 14px;">
+            <tr>
+                <td width="50">Lakcím</td>
+                <td style="font-size: 14px;"><b><?=$address;?></b></td>
+            </tr>
+        </table>
+
+        <p style="text-align: justify;">A szűrővizsgálatra jelentkező személy jelen adatfelvételi lap aláírásával igazolja, hogy a vizsgálat elvégzéséhez <b>önként hozzájárult.</b></p>
+        <p style="text-align: justify;">Tájékoztatjuk, hogy a gyorsteszt módszerrel történő tesztelésről és a vizsgálat eredményéről adatlap és eredményközlő lap kerül majd kitöltésre és átadásra.</p>
+        <p style="text-align: justify;">A vizsgálatra jelentkező személy tudomásul veszi, hogy pozítiv eredmény esetén haladéktalanul értesítenie kell háziorvosát, aki a Nemzeti Népegészségügyi Központ által kiadott eljárásrendben foglaltak szerint fog eljárni, és az 1/2014. EMMI Rendelet alapján az elvégzett teszt eredményét a vizsgált személy a tesztet elvégző szolgáltatónak a vizsgált személy személyazonosító adataival együtt jelentenie kell a központi járványügyi rendszer felé (OSZIR).</p>
+        <p style="text-align: justify;"><b>A pozitív vizsgálati eredmény járványügyi intézkedést von maga után, ezért a vizsgálati eredmény</b> a fertőző betegségek jelentésének rendjéről szóló 1/2014. (I. 16.) EMMI rendelet alapján <b>a vizsgált személy személyazonosító adataival együtt rögzítésre kerül az országos egészségügyi adatgyűjtő és járványügyi rendszerekben</b> (OSZIR), melyről a járványügyi hatóságok is értesülnek.</p>
+
+        <p><b>Aktuális egészségügyi állapot (a vizsgálat napján töltse ki):</b></p>
+        <p>Tapasztalja-e a következő tüneteket? (megfelelő rész aláhúzandó)</p>
+
+        <table style="width: 100%;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td width="180">Láz</td>
+                    <td>igen / nem</td>
+                    <td width="180">Nehézlégzés, légszomj</td>
+                    <td>igen / nem</td>
+                </tr>
+                <tr>
+                    <td width="180">Száraz köhögés</td>
+                    <td>igen / nem</td>
+                    <td width="180">Íz és/vagy szaglásvesztés</td>
+                    <td>igen / nem</td>
+                </tr>
+                <tr>
+                    <td width="180">Torokfájdalom</td>
+                    <td>igen / nem</td>
+                    <td width="180">Gyengeség</td>
+                    <td>igen / nem</td>
+                </tr>
+                <tr>
+                    <td width="180">Hasmenés</td>
+                    <td>igen / nem</td>
+                    <td width="180">Izomfájdalom</td>
+                    <td>igen / nem</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p style="text-align: justify;">Ha fentiek közül jelölt be valamit, mikor jelentkeztek a tünetek?</p>
+        <p>..........................................................................................................</p>
+
+        <p style="text-align: justify;">Az elmúlt 14 napban került-e szoros kapcsolatba (1,5 méteren belül, 15 percnél hosszabb ideig, maszk nélkül) ismert, vagy tudomása szerint később megbetegedett COVID-19 beteg személlyel?</p>
+        <p>igen / nem</p>
+
+        <b>Adatkezelés</b>
+        <p class="policy-text">A vizsgálathoz kapcsolódó adatkezelés célja: a COVID-19 antigén gyorsteszt elvégzése és az ehhez kapcsolódó jogszabályi kötelezettségen alapuló minimális adatkezelés (vizsgálat elvégzésének, körülményeinek dokumentálása, a vizsgált személy és az eredményt kapó személy azonosítása, járványügyi hatóságok felé fennálló adattovábbítási kötelezettség teljesítése). A tesztet végző szolgáltató mint adatkezelő () a rendelkezésre bocsátott adatokat célhoz kötötten, kizárólag az érintett egészségügyi ellátásához szükséges tevékenységekhez rögzíti, illetve továbbítja. Az adatoknak a szolgáltató rendelkezésére bocsátása nélkül a teszt elvégeztetésére nincs lehetőség.</p>
+
+        <p class="policy-text">A vizsgálat elvégzéséhez szükséges adatok kezeléséről, az adatkezeléssel összefüggő jogai (tájékoztatáshoz, hozzáféréshez, törléshez, illetve tiltakozáshoz való jog, jogorvoslati jog) gyakorlásának módjáról bővebb tájékoztatást a tesztállomáson kihelyezett részletes adatkezelési tájékoztató tartalmazza, illetve kérdéseire szóban a szolgáltató tesztet végző munkatársaitól lehet tájékoztatást kérni.</p>
+
+        <p style="text-align: justify;"><b>Fentieket megértettem és tudomásul vettem, a fenti adatok a valóságnak megfelelnek, adataimat önként adtam meg, konkrét, egyértelmű, megfelelő tájékoztatás után, amit aláírásommal igazolok.</b></p>
+
+        <div style="height: 20px"></div>
+
+        <table style="width: 100%;border: 0;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td>Budapest, <?=$signDate;?></td>
+                    <td style="text-align: right;">..............................................................</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div style="text-align: right;margin-right: 80px;">Aláírás<div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table id="humanId" style="width: 100%;border: 0;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td><?=$humanID;?></td>
+                    <td style="text-align: right;"><?=$humanID;?></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

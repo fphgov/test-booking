@@ -1,0 +1,51 @@
+<p>Kedves <?=$name;?>!</p>
+
+<p>Sikeresen fogadtuk a jelentkezését a <?=$infoMunicipality;?> ingyenes koronavírus gyorstesztelésére!</p>
+
+<table>
+    <tr>
+        <td>Azonosító:</td>
+        <td><b><?=$humanID;?></b></td>
+    </tr>
+    <tr>
+        <td>Időpont:</td>
+        <td><b><?=$time;?></b></td>
+    </tr>
+    <tr>
+        <td>Helyszín:</td>
+        <td><b><a href="<?=$placeLink;?>" target="_blank" rel="noopener"><?=$place;?></a></td>
+    </tr>
+</table>
+
+<p>A tesztelésre mindenképpen hozza magával a következőket:</p>
+
+<ul>
+    <li><b>személyi igazolvány,</b></li>
+    <li><b>TAJ-kártya,</b></li>
+    <li><b>lakcímkártya,</b></li>
+    <li><b>a csatolt dokumentumokat kinyomtatva és kitöltve.</b> (A helyszínen lesz lehetősége üres űrlapokat kitölteni, de ekkor is tudnia kell majd az azonosítószámát. A kinyomtatott lap gyorsítja az ügyintézést.)</li>
+</ul>
+
+<p>18 év alattiak csak szülői kísérettel vehetnek részt a tesztelésen.</p>
+
+<p>A helyszínre érkezéskor az adatfelvételi lapot kell kitöltve átadni a szolgáltatónak. A vizsgálat eredményét a csatolt egészségközlő lapon a helyszínen kb. 15 percen belül fogja megkapni. Minden szükséges információt biztosítunk az értelmezéshez, és a szükséges teendőkre vonatkozóan.</p>
+
+<p><b>Fontos tudnia</b>, hogy a <b>negatív vizsgálati eredmény nem jelenti biztosan, hogy nem fertőzött, illetve nem fertőz</b>. A szűrés csak egy adott pillanatot rögzít, tehát ez nem jelent „menlevelet” több napra, vagy esetleg hosszabb időszakra, hiszen a betegség kialakulásának folyamata ettől függetlenül a háttérben folyhat. Ha tüneteket is észlel magán, negatív eredmény esetén ún. PCR-teszt elkészíttetése továbbra is indokolt, amely már a fertőzés legkorább időszakában is kimutatja a vírus jelenlétét a szervezetben.</p>
+
+<p><b>Ha mégsem tud megjelenni a választott időpontban, kérjük, törölje a foglalását</b>, hogy más számára felszabadulhasson az időpont. A foglalás törlését az erre a levélre küldött válaszlevélben, az azonosítószám megadásával együtt jelezze. Miután töröltük a foglalását, újra meg kell adnia az adatait és választani egyet a fennmaradt időpontok közül.</p>
+
+<p><b><a href="<?=$infoUrl;?>/tudnivalok" target="_blank" rel="noopener">A vizsgálat előtt javasoljuk, hogy olvassa el részletes tájékoztatónkat ezen a linken.</a></b></p>
+
+<p>A vizsgálatot végző egészségügyi szolgálat adatkezelési tájékoztatóját <a href="<?=$infoDataPolicy;?>" target="_blank" rel="noopener">itt ismerheti meg</a>.</p>
+
+<p>Amennyiben vissza szeretné mondani az ingyenes koronavírus gyorstesztelésre való jelentkezését, az alábbi linken ezt megteheti.<br><a href="<?=$infoUrl;?>/lemondas/<?=$cancelHash;?>" target="_blank" rel="noopener"><?=$infoUrl;?>/lemondas/<?=$cancelHash;?></a></p>
+
+<p>
+    Üdvözlettel:<br>
+    <?=$infoMunicipality;?>
+</p>
+
+<p>Kapcsolat:<br>
+<?=$infoEmail;?><br>
+<?=$infoPhone;?>
+</p>

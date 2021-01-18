@@ -1,0 +1,3 @@
+* * * * * /usr/local/bin/php -f /var/www/html/bin/cron/notifications.php
+* * * * * /usr/local/bin/php -f /var/www/html/bin/cron/survey.php
+* * * * * /usr/local/bin/php -f /var/www/html/bin/cron/clear-reservation.php

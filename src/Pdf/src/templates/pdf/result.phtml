@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <style>
+            body, p {
+                font-family: 'Arial';
+                font-weight: normal;
+                font-size: 12px;
+            }
+
+            p {
+                line-height: 12x;
+            }
+
+            b, strong {
+                font-weight: bold;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .human-id {
+                position: fixed;
+
+                right: 0cm;
+                top: 0cm;
+
+                font-size: 32px;
+                font-weight: bold;
+                text-align: right;
+            }
+
+            .policy-text {
+                font-size: 10px;
+                line-height: 10x;
+                text-align: justify;
+            }
+
+            #humanId {
+                position: fixed;
+
+                bottom:   0cm;
+                left:     0cm;
+
+                z-index:  -1000;
+            }
+
+            .page_break { page-break-before: always; }
+        </style>
+    </head>
+
+    <body>
+        <h1 class="center">VIZSGÁLATI EREDMÉNY</h1>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 16px;margin-top: 10px;margin-bottom: 10px;">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td><div class="human-id"><?=$humanID;?></div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="height: 20px"></div>
+
+        <table style="width: 100%;border-collapse: collapse;line-height: 12px;">
+            <tr>
+                <td width="120">Név</td>
+                <td style="font-size: 14px"><b><?=$fullName;?></b></td>
+            </tr>
+            <tr>
+                <td width="120">TAJ-szám</td>
+                <td style="font-size: 14px"><b><?=$taj;?></b></td>
+            </tr>
+            <tr>
+                <td width="120">Születési hely, dátum</td>
+                <td style="font-size: 14px"><b><?=$birthPlace;?>, <?=$birthday;?></b></td>
+            </tr>
+        </table>
+
+        <div style="height: 20px"></div>
+
+        <p>SARS-CoV-2 antigén gyorsteszt módszerrel történő vizsgálat eredménye:</p>
+
+        <div style="height: 20px"></div>
+
+        <table style="width: 100%;border-collapse: collapse;text-align: center;">
+            <tbody>
+                <tr>
+                    <td width="33%">NEGATÍV</td>
+                    <td width="33%">POZITÍV</td>
+                    <td width="33%">NEM ÉRTÉKELHETŐ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="height: 20px"></div>
+
+        <p style="text-align: justify;">A vizsgálati eredmény helyes értékelésében segítséget nyújt az vizsgálati eredményhez mellékelt tájékoztató.</p>
+
+        <p style="text-align: justify;"><b>Pozitív eredmény esetén Ön fertőzheti a környezetében tartózkodókat! Kérjük haladéktalanul térjen vissza a járványvédelmi szabályok betartása mellett otthonába és értesítse a teszt eredményéről háziorvosát!</b></p>
+
+        <div style="height: 20px"></div>
+
+        <table style="width: 100%;border: 0;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td>Budapest, <?=$signDate;?></td>
+                    <td style="text-align: right;">........................................................................................</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><div style="text-align: right;margin-right: 50px;">Vizsgálatot végző személy aláírása<div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width: 100%;border: 0;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td width="200"><div style="text-align: center;margin-right: 10px;"><b>SAMPLE AMBULANCE</b><br />xy Kft.<div></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div style="height: 60px"></div>
+
+        <h4>Mit jelent az eredmény?</h4>
+
+        <b>Pozitív eredmény esetén</b>
+        <p style="margin-left: 16px;text-align: justify;">Ebben az esetben <b>kötelező a háziorvosánál jelentkeznie</b>, és az előírt járványügyi intézkedéseket megtennie (pl. karantén). Emellett kap egy tájékoztatót a további teendőkről, és ez az adat a jogszabály által előírtak szerint megjelenik az országos járványügyi és egészségügyi adatbázisban is.</p>
+        <b>Negatív eredmény esetén</b>
+        <p style="margin-left: 16px;text-align: justify;">Ha negatív az eredménye, az <b>nem jelenti biztosan, hogy nem fertőzött, illetve nem fertőz</b>.<br />A gyorsteszt nem talált olyan mennyiségű vírusfehérjét, ami alapaján a vírus jelenléte ezzel a vizsgálattal a vizsgálat alkalmával kimutatható lenne. Ez azonban nem jelent „menlevelet” több napra, vagy esetleg hosszabb időszakra, hiszen a betegség kialakulásának folyamata ettől függetlenül a háttérben folyhat. Ha tüneteket is észlel magán negatív eredmény esetén, ún. PCR-teszt elkészíttetése továbbra is indokolt, amely már a fertőzés legkorább időszakában is kimutatja a vírus jelenlétét a szervezetben.</p>
+
+        <table id="humanId" style="width: 100%;border: 0;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <td><?=$humanID;?></td>
+                    <td style="text-align: right;"><?=$humanID;?></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </body>
+</html>

@@ -1,0 +1,68 @@
+version: '3.5'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: test_booking_db
+    command: --explicit_defaults_for_timestamp --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file: .env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+      - ./docker/config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+    networks:
+      - default
+
+  webapp:
+    build:
+      context: .
+      dockerfile: docker/config/webapp/Dockerfile
+    container_name: test_booking_webapp
+    expose:
+      - 9002
+    ports:
+      - 9001:9001
+    volumes:
+      - .:/var/www/html
+      - ./docker/config/webapp/php/ini/limitation.ini:/usr/local/etc/php/conf.d/limitation.ini
+      - ./docker/config/webapp/php/ini/security.ini:/usr/local/etc/php/conf.d/security.ini
+      - ./docker/config/webapp/php/ini/upload.ini:/usr/local/etc/php/conf.d/upload.ini
+      - ./docker/config/webapp/php/ini/opcache.ini:/usr/local/etc/php/conf.d/opcache.ini
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+    env_file: .env
+    depends_on:
+      - db
+    networks:
+      - default
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: test_booking_nginx
+    networks:
+      - default
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./docker/config/nginx:/etc/nginx/conf.d
+      - ./docker/data/nginx/logs:/var/log/nginx
+      - ./:/var/www/html
+      - ./docker/config/cert:/opt/cert
+    depends_on:
+      - db
+      - webapp
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,57 @@
+# Composer files
+composer.phar
+vendor
+
+# Local configs
+config/autoload/*.local.php
+
+# Binary gettext files
+*.mo
+
+# Data
+data/cache/
+data/logs/
+data/sessions/
+data/tmp/
+temp/
+!data/cache/.gitempty
+!data/logs/.gitempty
+
+#Doctrine 2
+data/DoctrineORMModule/Proxy/
+data/DoctrineORMModule/cache/
+
+# Legacy ZF1
+demos/
+extras/documentation
+
+# Other
+.idea
+clover.xml
+coveralls-upload.json
+phpunit.xml
+
+.notes
+TODO
+.phpcs-cache
+.env
+.DS_Store
+
+# Docker
+docker/data/mysql/*
+docker/data/nginx/logs/*.*
+
+docker/config/cert/*
+!docker/config/cert/.gitkeep
+
+public/**/*
+!public/index.php
+!public/.htaccess
+!public/uploads
+!public/uploads/.gitkeep
+
+supervisord.log
+supervisord.pid
+
+.vscode
+.scannerwork
