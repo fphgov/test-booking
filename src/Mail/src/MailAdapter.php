@@ -58,15 +58,7 @@ class MailAdapter
             $bodyHtml->encoding = Mime::ENCODING_QUOTEDPRINTABLE;
             $bodyHtml->charset  = 'utf-8';
 
-            $bodyText           = new Part(strip_tags($html));
-            $bodyText->type     = Mime::TYPE_TEXT;
-            $bodyText->encoding = Mime::ENCODING_7BIT;
-            $bodyText->charset  = 'utf-8';
-
-            $bodyPart->setParts([
-                $bodyHtml,
-                $bodyText,
-            ]);
+            $bodyPart->setParts([$bodyHtml]);
 
             $this->message->setBody($bodyPart);
             $this->message->setEncoding('UTF-8');

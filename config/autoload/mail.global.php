@@ -22,7 +22,6 @@ return [
             'setEncoding' => 'UTF-8',
         ],
         'headers' => [
-            'message_id_key'    => getenv('SMTP_HEADERS_MESSAGE_ID_KEY'),
             'message_id_domain' => getenv('SMTP_HEADERS_MESSAGE_ID_DOMAIN'),
         ]
     ],

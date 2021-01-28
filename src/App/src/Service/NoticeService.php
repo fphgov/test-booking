@@ -56,17 +56,20 @@ final class NoticeService implements NoticeServiceInterface
             $this->mailAdapter->message->addReplyTo($this->config['app']['notification']['mail']['replayTo']);
 
             $tplData = [
-                'name'             => $applicant->getFirstname(),
-                'humanID'          => $applicant->getHumanId(),
-                'time'             => $appointment->getDate()->format('Y.m.d. H.i'),
-                'place'            => $appointment->getPlace()->getDescription(),
-                'placeLink'        => $appointment->getPlace()->getLink(),
-                'cancelHash'       => $applicant->getCancelHash(),
-                'infoMunicipality' => $this->config['app']['municipality'],
-                'infoPhone'        => $this->config['app']['phone'],
-                'infoEmail'        => $this->config['app']['email'],
-                'infoUrl'          => $this->config['app']['url'],
-                'infoDataPolicy'   => $this->config['app']['data_policy'],
+                'name'                 => $applicant->getFirstname(),
+                'humanID'              => $applicant->getHumanId(),
+                'time'                 => $appointment->getDate()->format('Y.m.d. H.i'),
+                'place'                => $appointment->getPlace()->getDescription(),
+                'placeLink'            => $appointment->getPlace()->getLink(),
+                'cancelHash'           => $applicant->getCancelHash(),
+                'infoMunicipality'     => $this->config['app']['municipality'],
+                'infoPhone'            => $this->config['app']['phone'],
+                'infoEmail'            => $this->config['app']['email'],
+                'infoUrl'              => $this->config['app']['url'],
+                'infoDataPolicy'       => $this->config['app']['data_policy'],
+                'infoCompanyNamePart1' => $this->config['app']['company_name_part_1'],
+                'infoCompanyNamePart2' => $this->config['app']['company_name_part_2'],
+                'infoCompanyFullInfo'  => $this->config['app']['company_full_info'],
             ];
 
             $pdf       = $this->getPdf($applicant, $appointment, 'pdf/created');
@@ -104,6 +107,10 @@ final class NoticeService implements NoticeServiceInterface
             'birthPlace' => $applicant->getBirthdayPlace(),
             'birthday'   => $applicant->getBirthday()->format('Y.m.d.'),
             'signDate'   => $appointment->getDate()->format('Y.m.d.'),
+
+            'infoCompanyNamePart1' => $this->config['app']['company_name_part_1'],
+            'infoCompanyNamePart2' => $this->config['app']['company_name_part_2'],
+            'infoCompanyFullInfo'  => $this->config['app']['company_full_info'],
         ];
 
         $dompdf->loadHtml($this->pdfRender->render($template, $tplData));

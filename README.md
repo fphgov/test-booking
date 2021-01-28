@@ -6,7 +6,7 @@ A Főváros Önkormányzata által létrehozott, koronavírus gyorstesztelés me
 - Docker (minimum 17.12.0+ Docker Engine release)
 
 #### Üzemeltetés
-Az alkalmazás közvetlen függőségeit a `docker/config/webapp/Dockerfile.production` írja le, a futtatását Dockerrel javasoljuk. Amennyiben nem Dockerrel fog futni, úgy a fájlban lévő összes csomagot, beállításokat manuálisan kell elvégezni. Továbbá külön figyelmet kell fordítani a `cronjob`-ra beállítására, az `utf-8`-as Arial betűtípus telepítésére.
+Az alkalmazás közvetlen függőségeit a `docker/config/webapp/Dockerfile` írja le, a futtatását Dockerrel javasoljuk. Amennyiben nem Dockerrel fog futni, úgy a fájlban lévő összes csomagot, beállításokat manuálisan kell elvégezni. Továbbá külön figyelmet kell fordítani a `cronjob`-ra beállítására, az `utf-8`-as Arial betűtípus telepítésére.
 
 A szükséges `cronjob` beállítás a `bash/crontab` fájlban található.
 
@@ -27,18 +27,7 @@ A `config/development.config.php.dist` fájlt is le kell másolni, a másolat ne
 
 A Docker környezetnek futnia kell, utána pedig az alábbi paranccsal lehet elinditani. Ez automatikusan meghívja indulás után a `docker/config/webapp/setup.sh`-ban lévő sciptet. Ezzel fel fognak települni a PHP csomagok és a PDF generáláshoz szükséges betűkészlet.
 ```
-docker-compose up --build -d
-```
-
-Amennyiben `éles környezetben` telepítjük, úgy az alábbi parancsot kell kiadni. Ebből hiányoznak a fejlesztéshez szükséges toolok, illetve rendelkezik már optimalizációval is.
-```
-docker-compose up --build -f docker-compose.production.yml -d
-```
-
-Az adatbázisban le kell futtatni a `migration/shemas.sql` fájlt. És ki kell adni Docker konténeren belűl az adatbázis létrehozásához és frissítéséhez szükséges parancsot.
-
-```
-docker exec -it test_booking_webapp composer db-update
+docker-compose up -f docker-compose.production.yml --build -d
 ```
 
 #### Licence

@@ -46,6 +46,15 @@ $tplData = [
     'birthPlace' => $applicant->getBirthdayPlace(),
     'birthday'   => $applicant->getBirthday()->format('Y.m.d.'),
     'signDate'   => $appointment->getDate()->format('Y.m.d.'),
+
+    'infoMunicipality'     => $config['app']['municipality'],
+    'infoPhone'            => $config['app']['phone'],
+    'infoEmail'            => $config['app']['email'],
+    'infoUrl'              => $config['app']['url'],
+    'infoDataPolicy'       => $config['app']['data_policy'],
+    'infoCompanyNamePart1' => $config['app']['company_name_part_1'],
+    'infoCompanyNamePart2' => $config['app']['company_name_part_2'],
+    'infoCompanyFullInfo'  => $config['app']['company_full_info'],
 ];
 
 $dompdf = new Dompdf();
@@ -75,12 +84,7 @@ $tplData = [
     'place'      => $appointment->getPlace()->getDescription(),
     'placeLink'  => $appointment->getPlace()->getLink(),
     'cancelHash' => $applicant->getCancelHash(),
-
-    'infoMunicipality' => $config['app']['municipality'],
-    'infoPhone'        => $config['app']['phone'],
-    'infoEmail'        => $config['app']['email'],
-    'infoUrl'          => $config['app']['url'],
-    'infoDataPolicy'   => $config['app']['data_policy'],
+    'infoUrl'    => $config['app']['url'],
 ];
 
 $mailAdapter->setTemplate('email/created', $tplData)

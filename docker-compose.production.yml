@@ -1,10 +1,24 @@
 version: '3.5'
 
 services:
+  db:
+    image: mysql:5.7
+    container_name: test_booking_db
+    command: --explicit_defaults_for_timestamp --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    env_file: .env
+    expose:
+      - 3306
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+      - ./docker/config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./migration/shemas.sql:/docker-entrypoint-initdb.d/shemas.sql
+    networks:
+      - default
+
   webapp:
     build:
       context: .
-      dockerfile: docker/config/webapp/Dockerfile.production
+      dockerfile: docker/config/webapp/Dockerfile
     container_name: test_booking_webapp
     expose:
       - 9002
@@ -20,26 +34,28 @@ services:
       timeout: 10s
       retries: 3
     env_file: .env
+    depends_on:
+      - db
     networks:
-      - proxy
+      - default
 
   nginx:
     image: nginx:stable-alpine
     container_name: test_booking_nginx
     networks:
-      - proxy
-    expose:
-      - 80
-      - 443
+      - default
+    ports:
+      - 80:80
+      - 443:443
     volumes:
       - ./docker/config/nginx:/etc/nginx/conf.d
       - ./docker/data/nginx/logs:/var/log/nginx
       - ./:/var/www/html
       - ./docker/config/cert:/opt/cert
     depends_on:
+      - db
       - webapp
 
 networks:
-  proxy:
-    external:
-      name: proxy
+  default:
+    driver: bridge

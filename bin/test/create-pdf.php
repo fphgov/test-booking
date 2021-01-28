@@ -38,11 +38,14 @@ $tplData = [
     'birthday'   => '1990.01.01.',
     'signDate'   => '2020.12.14.',
 
-    'infoMunicipality' => $config['app']['municipality'],
-    'infoPhone'        => $config['app']['phone'],
-    'infoEmail'        => $config['app']['email'],
-    'infoUrl'          => $config['app']['url'],
-    'infoDataPolicy'   => $config['app']['data_policy'],
+    'infoMunicipality'     => $config['app']['municipality'],
+    'infoPhone'            => $config['app']['phone'],
+    'infoEmail'            => $config['app']['email'],
+    'infoUrl'              => $config['app']['url'],
+    'infoDataPolicy'       => $config['app']['data_policy'],
+    'infoCompanyNamePart1' => $config['app']['company_name_part_1'],
+    'infoCompanyNamePart2' => $config['app']['company_name_part_2'],
+    'infoCompanyFullInfo'  => $config['app']['company_full_info'],
 ];
 
 $dompdf = new Dompdf();
@@ -72,6 +75,7 @@ $tplData = [
     'place'      => 'Kelenföldi pályaudvar – Etele tér (metrókijáró előtti park a Volánbusz pályaudvar és a BKV buszvégállomás között)',
     'placeLink'  => 'http://www.google.com/maps/place/47.49685621188065,19.055092671651998',
     'cancelHash' => 'VmRPNjllU0RwOFNY',
+    'infoUrl'    => $config['app']['url'],
 ];
 
 $mailAdapter->setTemplate('email/created', $tplData)

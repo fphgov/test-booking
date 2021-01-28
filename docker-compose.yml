@@ -11,6 +11,7 @@ services:
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
       - ./docker/config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
+      - ./migration/shemas.sql:/docker-entrypoint-initdb.d/shemas.sql
     networks:
       - default
 
