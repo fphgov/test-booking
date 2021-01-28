@@ -16,8 +16,6 @@ require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createUnsafeMutable(BASIC_PATH);
 $dotenv->load();
 
-define('UPLOAD_PATH', BASIC_PATH . getenv('PATH_UPLOAD'));
-
 (function () {
     $container = require 'config/container.php';
 

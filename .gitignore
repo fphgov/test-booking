@@ -47,8 +47,6 @@ docker/config/cert/*
 public/**/*
 !public/index.php
 !public/.htaccess
-!public/uploads
-!public/uploads/.gitkeep
 
 supervisord.log
 supervisord.pid
