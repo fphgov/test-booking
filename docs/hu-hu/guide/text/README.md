@@ -1,0 +1,3 @@
+# Szövegezéssel kapcsolatos leírás
+
+Hamarosan...

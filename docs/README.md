@@ -1,0 +1,3 @@
+# Documentation
+
+> An awesome project.
