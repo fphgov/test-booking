@@ -131,6 +131,13 @@ class Applicant implements JsonSerializable, ApplicantInterface
      */
     private $survey = false;
 
+    /**
+     * @ORM\Column(name="attended", type="boolean")
+     *
+     * @var bool
+     */
+    private $attended = false;
+
     public function setHumanId(string $humanId): void
     {
         $this->humanId = $humanId;
@@ -179,6 +186,16 @@ class Applicant implements JsonSerializable, ApplicantInterface
     public function getSurvey(): bool
     {
         return (bool) $this->survey;
+    }
+
+    public function setAttended(bool $attended): void
+    {
+        $this->attended = $attended;
+    }
+
+    public function getAttended(): bool
+    {
+        return (bool) $this->attended;
     }
 
     public function setFirstname(string $firstname): void

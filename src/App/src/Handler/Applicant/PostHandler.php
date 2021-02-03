@@ -104,6 +104,10 @@ final class PostHandler implements RequestHandlerInterface
             $applicant->setNotified((bool) $body['reNotified']);
         }
 
+        if (! empty($body['attended'])) {
+            $applicant->setAttended((bool) $body['attended']);
+        }
+
         $this->em->flush();
 
         return new JsonResponse([
