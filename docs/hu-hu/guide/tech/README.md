@@ -101,6 +101,7 @@ A szoftver a beállításához környezeti változókat használ. Ezt a `.env` f
 |APP_EMAIL|ugyfelszolgalat@onkormanyzat.hu|-|Önkormányzat (ügyfélszolgálatának) e-mail címe|
 |APP_PHONE|"06-1-000-0001"|-|Önkormányzat (ügyfélszolgálatának) telefonszáma|
 |APP_URL|"https://covidteszt.onkormanyzat.hu"|-|Az alkalmazás URL elérhetősége|
+|APP_URL_ADMIN|"https://covidteszt.onkormanyzat.hu/bp-admin"|-|Az alkalmazás admin URL elérhetősége|
 |APP_COMPANY_NAME_PART_1|"SAMPLE AMBULANCE"|-|A generált PDF-en megjelenő aláírás első sora|
 |APP_COMPANY_NAME_PART_2|"xy Kft."|-|A generált PDF-en megjelenő aláírás második sora|
 |APP_COMPANY_FULL_INFO|"Sample Ambulance Kft, székhely: 1111 Budapest, Alma utca 0.; adószám: 00000000000., cégjegyzékszám: 00 00 000000; e-mail: info@samplexykft.hu"|-|A generált PDF-en megjelenő hosszabb céginformáció (adatvédelmi szövegben)|

@@ -99,6 +99,24 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         App\Handler\Applicant\ExportHandler::class
     ], 'admin.api.applicant.export');
 
+    $app->get('/admin/api/check/s/{search}', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        App\Handler\Applicant\SearchHandler::class
+    ], 'admin.api.check.search');
+
+    $app->get('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        App\Handler\Applicant\CheckGetHandler::class
+    ], 'admin.api.check.get');
+
+    $app->post('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        App\Handler\Applicant\CheckPostHandler::class
+    ], 'admin.api.check.post');
+
     // $app->post('/admin/api/generate/appointment', [
     //     Jwt\Handler\JwtAuthMiddleware::class,
     //     App\Middleware\UserMiddleware::class,

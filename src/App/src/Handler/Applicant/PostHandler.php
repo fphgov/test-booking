@@ -101,11 +101,11 @@ final class PostHandler implements RequestHandlerInterface
         }
 
         if (! empty($body['reNotified'])) {
-            $applicant->setNotified((bool) $body['reNotified']);
+            $applicant->setNotified($body['reNotified'] === "true" || $body['reNotified'] === true);
         }
 
         if (! empty($body['attended'])) {
-            $applicant->setAttended((bool) $body['attended']);
+            $applicant->setAttended($body['attended'] === "true" || $body['attended'] === true);
         }
 
         $this->em->flush();

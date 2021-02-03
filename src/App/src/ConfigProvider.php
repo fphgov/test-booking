@@ -47,6 +47,8 @@ class ConfigProvider
                 Handler\Applicant\DelHandler::class           => Handler\Applicant\DelHandlerFactory::class,
                 Handler\Applicant\ExportHandler::class        => Handler\Applicant\ExportHandlerFactory::class,
                 Handler\Applicant\CancellationHandler::class  => Handler\Applicant\CancellationHandlerFactory::class,
+                Handler\Applicant\CheckGetHandler::class      => Handler\Applicant\CheckGetHandlerFactory::class,
+                Handler\Applicant\CheckPostHandler::class     => Handler\Applicant\CheckPostHandlerFactory::class,
                 Handler\Appointment\GetHandler::class         => Handler\Appointment\GetHandlerFactory::class,
                 Handler\Appointment\GetTimesHandler::class    => Handler\Appointment\GetTimesHandlerFactory::class,
                 Handler\Appointment\GenerateHandler::class    => Handler\Appointment\GenerateHandlerFactory::class,
