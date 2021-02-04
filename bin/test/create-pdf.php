@@ -10,6 +10,9 @@ if (PHP_SAPI !== 'cli') {
 
 chdir(__DIR__ . '/../../');
 
+use App\Entity\Applicant;
+use App\Entity\Appointment;
+use App\Entity\Place;
 use App\Service\NoticeService;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
@@ -23,8 +26,10 @@ require 'vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createUnsafeMutable(dirname(__DIR__, 2));
 $dotenv->load();
 
-$config = include 'config/config.php';
+$config    = include 'config/config.php';
 $container = require 'config/container.php';
+
+$template = $container->get(PdfRender::class);
 
 $qrOptions = new QROptions([
     'version'      => 8,
@@ -33,25 +38,47 @@ $qrOptions = new QROptions([
     'addQuietzone' => false,
 ]);
 
-$template = $container->get(PdfRender::class);
+$place = new Place();
+$place->setId(1);
+$place->setName('Árpád magyar fejedelem útja 99, XXIII. kerület');
+$place->setShortName('A1');
+$place->setLink('http://www.google.com/maps/place/47.49685621188065,19.055092671651998');
+$place->setDescription('Kelenföldi pályaudvar – Etele tér (metrókijáró előtti park a Volánbusz pályaudvar és a BKV buszvégállomás között)');
 
-$humanId = 'F1-00001';
+$appointment = new Appointment();
+$appointment->setId(1);
+$appointment->setDate(new DateTime('2020-12-14 08:00:00'));
+$appointment->setPlace($place);
+$appointment->setPhase(0);
 
-$qrData = NoticeService::addHttp($config['app']['url_admin'] . '#/checks/' . $humanId);
+$applicant = new Applicant();
+$applicant->setId(1);
+$applicant->setAppointment($appointment);
+$applicant->setCancelHash('VmRPNjllU0RwOFNY');
+$applicant->setLastname('Kovács');
+$applicant->setFirstname('János');
+$applicant->setHumanId('F1-00001');
+$applicant->setAddress('1052 Budapest, Városház utca 0');
+$applicant->setTaj('111 222 333');
+$applicant->setPhone('36300001122');
+$applicant->setEmail('john.smith@test.hu');
+$applicant->setBirthdayPlace('Budapest');
+$applicant->setBirthday(new DateTime('1990-01-01'));
+
+$qrData = NoticeService::addHttp($config['app']['url_admin'] . '#/checks/' . $applicant->getHumanId());
 
 $tplData = [
-    'fullName'   => 'Kovács János',
-    'humanID'    => $humanId,
-    'time'       => '2020.12.14 8.00',
-    'place'      => 'Etele tér, XI. kerület',
-    'place'      => 'Árpád magyar fejedelem útja 99, XXIII. kerület',
-    'address'    => '1052 Budapest, Városház utca 0',
-    'taj'        => '111 222 333',
-    'phone'      => '36300001122',
-    'email'      => 'john.smith@test.hu',
-    'birthPlace' => 'Budapest',
-    'birthday'   => '1990.01.01.',
-    'signDate'   => '2020.12.14.',
+    'fullName'   => $applicant->getLastname() . ' ' . $applicant->getFirstname(),
+    'humanID'    => $applicant->getHumanId(),
+    'time'       => $applicant->getAppointment()->getDate()->format('Y.m.d. H.i'),
+    'place'      => $applicant->getAppointment()->getPlace()->getName(),
+    'address'    => $applicant->getAddress(),
+    'taj'        => $applicant->getTaj(),
+    'phone'      => $applicant->getPhone(),
+    'email'      => $applicant->getEmail(),
+    'birthPlace' => $applicant->getBirthdayPlace(),
+    'birthday'   => $applicant->getBirthday()->format('Y.m.d.'),
+    'signDate'   => $applicant->getAppointment()->getDate()->format('Y.m.d.'),
 
     'infoMunicipality'     => $config['app']['municipality'],
     'infoPhone'            => $config['app']['phone'],
@@ -86,12 +113,12 @@ $mailAdapter->message->setSubject($config['app']['notification']['mail']['subjec
 $mailAdapter->message->addReplyTo($config['app']['notification']['mail']['replayTo']);
 
 $emailTplData = [
-    'name'       => 'John',
-    'humanID'    => $humanId,
-    'time'       => '2020.12.14 8.00',
-    'place'      => 'Kelenföldi pályaudvar – Etele tér (metrókijáró előtti park a Volánbusz pályaudvar és a BKV buszvégállomás között)',
-    'placeLink'  => 'http://www.google.com/maps/place/47.49685621188065,19.055092671651998',
-    'cancelHash' => 'VmRPNjllU0RwOFNY',
+    'name'       => $applicant->getFirstname(),
+    'humanID'    => $applicant->getHumanId(),
+    'time'       => $applicant->getAppointment()->getDate()->format('Y.m.d. H.i'),
+    'place'      => $applicant->getAppointment()->getPlace()->getDescription(),
+    'placeLink'  => $applicant->getAppointment()->getPlace()->getLink(),
+    'cancelHash' => $applicant->getCancelHash(),
     'infoUrl'    => $config['app']['url'],
 
     'infoMunicipality' => $config['app']['municipality'],
