@@ -6,12 +6,16 @@ namespace App\Service;
 
 use App\Entity\ApplicantInterface;
 use App\Entity\AppointmentInterface;
+use chillerlan\QRCode\QRCode;
+use chillerlan\QRCode\QROptions;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Laminas\Log\Logger;
 use Mail\MailAdapter;
 use Pdf\Interfaces\PdfRender;
 use Throwable;
+
+use function preg_match;
 
 final class NoticeService implements NoticeServiceInterface
 {
@@ -91,9 +95,23 @@ final class NoticeService implements NoticeServiceInterface
         }
     }
 
+    private function getQRCode(string $qrData): string
+    {
+        $qrOptions = new QROptions([
+            'version'      => 8,
+            'outputType'   => QRCode::OUTPUT_MARKUP_SVG,
+            'eccLevel'     => QRCode::ECC_H,
+            'addQuietzone' => false,
+        ]);
+
+        return (new QRCode($qrOptions))->render($qrData);
+    }
+
     private function getPdf(ApplicantInterface $applicant, AppointmentInterface $appointment, string $template): ?string
     {
         $dompdf = new Dompdf();
+
+        $qrData = self::addHttp($this->config['app']['url_admin'] . '#/checks/' . $applicant->getHumanId());
 
         $tplData = [
             'fullName'   => $applicant->getLastname() . ' ' . $applicant->getFirstname(),
@@ -111,6 +129,8 @@ final class NoticeService implements NoticeServiceInterface
             'infoCompanyNamePart1' => $this->config['app']['company_name_part_1'],
             'infoCompanyNamePart2' => $this->config['app']['company_name_part_2'],
             'infoCompanyFullInfo'  => $this->config['app']['company_full_info'],
+
+            'qrCode' => $this->getQRCode($qrData),
         ];
 
         $dompdf->loadHtml($this->pdfRender->render($template, $tplData));
@@ -122,5 +142,14 @@ final class NoticeService implements NoticeServiceInterface
         unset($dompdf);
 
         return $output;
+    }
+
+    public static function addHttp($url): string
+    {
+       if (! preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "http://" . $url;
+        }
+
+        return $url;
     }
 }

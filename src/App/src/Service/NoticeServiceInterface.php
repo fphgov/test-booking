@@ -9,4 +9,6 @@ use App\Entity\ApplicantInterface;
 interface NoticeServiceInterface
 {
     public function sendEmail(ApplicantInterface $applicant): void;
+
+    public static function addHttp($url): string;
 }

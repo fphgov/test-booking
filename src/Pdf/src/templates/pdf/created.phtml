@@ -21,29 +21,53 @@
             }
 
             .human-id {
-                position: fixed;
-
-                right: 0cm;
-                top: 0cm;
-
-                font-size: 32px;
+                display: block;
+                font-size: 18px;
                 font-weight: bold;
-                text-align: right;
+                text-align: center;
+                margin-bottom: 4px;
             }
 
             .policy-text {
                 font-size: 10px;
                 line-height: 10x;
                 text-align: justify;
+                padding-top: 0;
+                padding-bottom: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            #qrCode {
+                text-align: left;
+                margin: 0;
+                padding: 0;
             }
 
             #humanId {
                 position: fixed;
 
-                bottom:   0cm;
-                left:     0cm;
+                bottom: 0cm;
+                left:   0cm;
 
                 z-index:  -1000;
+            }
+
+            h1 {
+                display: block;
+                text-align: right;
+                margin: 0;
+            }
+
+            .places {
+                font-size: 16px;
+                overflow-wrap: break-word;
+            }
+
+            .ow {
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+                hyphens: auto;
             }
 
             .page_break { page-break-before: always; }
@@ -51,29 +75,17 @@
     </head>
 
     <body>
-        <h1 class="center">ADATFELVÉTELI LAP</h1>
-
-        <table style="width: 100%;border-collapse: collapse;line-height: 16px;margin-top: 10px;margin-bottom: 10px;">
+        <table style="width: 100%;border-collapse: collapse;line-height: 16px;margin-top: 0px;margin-bottom: 10px;">
             <tbody>
                 <tr>
-                    <td></td>
-                    <td><div class="human-id"><?=$humanID;?></div></td>
+                    <td width="60" style="text-align: left;"><div class="human-id"><?=$humanID;?></div><img id="qrCode" width="80" height="80" src="<?=$qrCode;?>" /></td>
+                    <td style="padding-left: 6px;"><div class="places"><b><?=$time;?></b><br><div class="ow"><?=$place;?></div></div></td>
+                    <td width="240"><h1>ADATFELVÉTELI LAP</h1><p style="text-align: right;margin:0;padding:0;">SARS-CoV-2 antigén gyorsteszt önkéntes vizsgálathoz.</p></td>
                 </tr>
             </tbody>
         </table>
 
-        <p style="text-align: center;">SARS-CoV-2 antigén gyorsteszt önkéntes vizsgálathoz.</p>
-
-        <table style="width: 100%;border-collapse: collapse;line-height: 14px;">
-            <tr>
-                <td>A vizsgálat előjegyzett időpontja:</td>
-                <td style="font-size: 14px;"><b><?=$time;?></b></td>
-                <td style="text-align: right;">A vizsgálat helye:</td>
-                <td style="text-align: right;font-size: 14px"><b><?=$place;?></b></td>
-            </tr>
-        </table>
-
-        <div class="height: 12px;">&nbsp;</div>
+        <div style="height: 12px"></div>
 
         <table style="width: 100%;border-collapse: collapse;line-height: 14px;">
             <tr>
@@ -91,6 +103,8 @@
             <tr>
                 <td width="50">E-mail</td>
                 <td style="font-size: 14px;"><b><?=$email;?></b></td>
+                <td></td>
+                <td></td>
             </tr>
         </table>
 

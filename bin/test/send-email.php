@@ -28,7 +28,7 @@ $mailAdapter->message->addTo($config['app']['notification']['mail']['testTo']);
 $mailAdapter->message->setSubject($config['app']['notification']['mail']['subject']);
 $mailAdapter->message->addReplyTo($config['app']['notification']['mail']['replayTo']);
 
-$tplData = [
+$emailTplData = [
     'name'       => 'Tamás',
     'humanID'    => 'F1-0001',
     'time'       => 'F1-0001',
@@ -41,9 +41,6 @@ $tplData = [
     'infoEmail'            => $config['app']['email'],
     'infoUrl'              => $config['app']['url'],
     'infoDataPolicy'       => $config['app']['data_policy'],
-    'infoCompanyNamePart1' => $config['app']['company_name_part_1'],
-    'infoCompanyNamePart2' => $config['app']['company_name_part_2'],
-    'infoCompanyFullInfo'  => $config['app']['company_full_info'],
 ];
 
-$mailAdapter->setTemplate('email/created', $tplData)->send();
+$mailAdapter->setTemplate('email/created', $emailTplData)->send();

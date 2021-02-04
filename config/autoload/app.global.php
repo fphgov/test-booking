@@ -7,6 +7,7 @@ return [
         'municipality'        => getenv('APP_MUNICIPALITY'),
         'phone'               => getenv('APP_PHONE'),
         'url'                 => getenv('APP_URL'),
+        'url_admin'           => getenv('APP_URL_ADMIN'),
         'email'               => getenv('APP_EMAIL'),
         'data_policy'         => getenv('APP_DATA_POLICY'),
         'company_name_part_1' => getenv('APP_COMPANY_NAME_PART_1'),
