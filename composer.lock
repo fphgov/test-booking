@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d02e41ab6238cc4e2ffdf6b860b38b2",
+    "content-hash": "52ceddd6813ba6e92b3504f08c9a76c0",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -2980,6 +2980,67 @@
             "time": "2020-03-29T13:12:07+00:00"
         },
         {
+            "name": "laminas/laminas-permissions-acl",
+            "version": "2.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-permissions-acl.git",
+                "reference": "d8cd35ed94eef5d3d2533af4a72cf1c2932084bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-permissions-acl/zipball/d8cd35ed94eef5d3d2533af4a72cf1c2932084bb",
+                "reference": "d8cd35ed94eef5d3d2533af4a72cf1c2932084bb",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^5.6 || ^7.0"
+            },
+            "replace": {
+                "zendframework/zend-permissions-acl": "^2.7.1"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3",
+                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.5"
+            },
+            "suggest": {
+                "laminas/laminas-servicemanager": "To support Laminas\\Permissions\\Acl\\Assertion\\AssertionManager plugin manager usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Permissions\\Acl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Provides a lightweight and flexible access control list (ACL) implementation for privileges management",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "acl",
+                "laminas"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.laminas.dev/laminas-permissions-acl/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-permissions-acl/issues",
+                "rss": "https://github.com/laminas/laminas-permissions-acl/releases.atom",
+                "source": "https://github.com/laminas/laminas-permissions-acl"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2020-09-22T14:08:17+00:00"
+        },
+        {
             "name": "laminas/laminas-servicemanager",
             "version": "3.6.4",
             "source": {
@@ -3792,6 +3853,155 @@
                 }
             ],
             "time": "2020-11-03T21:03:26+00:00"
+        },
+        {
+            "name": "mezzio/mezzio-authorization",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mezzio/mezzio-authorization.git",
+                "reference": "890e1c13d58bd56ee04dc864ecb0bc3604a997e1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mezzio/mezzio-authorization/zipball/890e1c13d58bd56ee04dc864ecb0bc3604a997e1",
+                "reference": "890e1c13d58bd56ee04dc864ecb0bc3604a997e1",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "mezzio/mezzio-authentication": "^1.0",
+                "php": "^7.1",
+                "psr/container": "^1.0",
+                "psr/http-message": "^1.0.1",
+                "psr/http-server-middleware": "^1.0"
+            },
+            "conflict": {
+                "container-interop/container-interop": "<1.2.0"
+            },
+            "replace": {
+                "zendframework/zend-expressive-authorization": "self.version"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "phpunit/phpunit": "^7.0.2"
+            },
+            "suggest": {
+                "mezzio/mezzio-authorization-acl": "^1.0; provides a laminas-permissions-acl-backed adapter",
+                "mezzio/mezzio-authorization-rbac": "^1.0; provides a laminas-permissions-rbac-backed adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev",
+                    "dev-develop": "1.1.x-dev"
+                },
+                "laminas": {
+                    "config-provider": "Mezzio\\Authorization\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mezzio\\Authorization\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Authorization middleware for Mezzio and PSR-7 applications",
+            "homepage": "https://mezzio.dev",
+            "keywords": [
+                "authorization",
+                "laminas",
+                "mezzio",
+                "middleware",
+                "psr-15",
+                "psr-7"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.mezzio.dev/mezzio-authorization/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/mezzio/mezzio-authorization/issues",
+                "rss": "https://github.com/mezzio/mezzio-authorization/releases.atom",
+                "source": "https://github.com/mezzio/mezzio-authorization"
+            },
+            "time": "2019-12-31T15:43:27+00:00"
+        },
+        {
+            "name": "mezzio/mezzio-authorization-acl",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mezzio/mezzio-authorization-acl.git",
+                "reference": "5675ae632c08139456b24248f0a7685099ec5da3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mezzio/mezzio-authorization-acl/zipball/5675ae632c08139456b24248f0a7685099ec5da3",
+                "reference": "5675ae632c08139456b24248f0a7685099ec5da3",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-permissions-acl": "^2.6",
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "mezzio/mezzio-authorization": "^1.0",
+                "mezzio/mezzio-router": "^3.0",
+                "php": "^7.1",
+                "psr/container": "^1.0",
+                "psr/http-message": "^1.0.1"
+            },
+            "conflict": {
+                "container-interop/container-interop": "<1.2.0",
+                "phpspec/prophecy": "<1.10.2"
+            },
+            "replace": {
+                "zendframework/zend-expressive-authorization-acl": "^1.0.1"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-servicemanager": "^3.3",
+                "phpunit/phpunit": "^7.5.20 || ^8.5.2"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev",
+                    "dev-develop": "1.1.x-dev"
+                },
+                "laminas": {
+                    "config-provider": "Mezzio\\Authorization\\Acl\\ConfigProvider"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mezzio\\Authorization\\Acl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "laminas-permissions-acl adapter for mezzio-authorization",
+            "homepage": "https://mezzio.dev",
+            "keywords": [
+                "acl",
+                "authorization",
+                "laminas",
+                "mezzio",
+                "middleware",
+                "psr-7"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.mezzio.dev/mezzio-authorization-acl/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/mezzio/mezzio-authorization-acl/issues",
+                "rss": "https://github.com/mezzio/mezzio-authorization-acl/releases.atom",
+                "source": "https://github.com/mezzio/mezzio-authorization-acl"
+            },
+            "time": "2020-03-28T19:26:15+00:00"
         },
         {
             "name": "mezzio/mezzio-cors",
@@ -9929,7 +10139,6 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4",
-        "ext-gd": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*"

@@ -12,12 +12,12 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     if (getenv('NODE_ENV') === 'development') {
         $app->post('/app/api/registration', [
             App\Handler\Applicant\AddHandler::class
-        ], 'api.applicant.add');
+        ], 'app.api.applicant.add');
     } else {
         $app->post('/app/api/registration', [
             \Middlewares\Recaptcha::class,
             App\Handler\Applicant\AddHandler::class
-        ], 'api.applicant.add');
+        ], 'app.api.applicant.add');
     }
 
     $app->post('/app/api/cancellation', [
@@ -53,6 +53,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         $app->get('/admin/api/cache/clear', [
             Jwt\Handler\JwtAuthMiddleware::class,
             App\Middleware\UserMiddleware::class,
+            \Mezzio\Authorization\AuthorizationMiddleware::class,
             App\Handler\Tools\ClearCacheHandler::class
         ], 'admin.api.cache.clear');
     }
@@ -60,60 +61,70 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     $app->get('/admin/api/dashboard', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Dashboard\GetHandler::class
     ], 'admin.api.dashboard.get');
 
     $app->post('/admin/api/dashboard', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Dashboard\ChangeHandler::class
     ], 'admin.api.dashboard.set');
 
     $app->get('/admin/api/applicant/s/{search}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\SearchHandler::class
     ], 'admin.api.applicant.search');
 
     $app->get('/admin/api/applicant/{id:\d+}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\GetHandler::class
     ], 'admin.api.applicant.get');
 
     $app->post('/admin/api/applicant/{id:\d+}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\PostHandler::class
     ], 'admin.api.applicant.post');
 
     $app->delete('/admin/api/applicant/{id:\d+}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\DelHandler::class
     ], 'admin.api.applicant.del');
 
     $app->get('/admin/api/applicant/export', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\ExportHandler::class
     ], 'admin.api.applicant.export');
 
     $app->get('/admin/api/check/s/{search}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\SearchHandler::class
     ], 'admin.api.check.search');
 
     $app->get('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\CheckGetHandler::class
     ], 'admin.api.check.get');
 
     $app->post('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Applicant\CheckPostHandler::class
     ], 'admin.api.check.post');
 

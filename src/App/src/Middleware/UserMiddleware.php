@@ -6,6 +6,8 @@ namespace App\Middleware;
 
 use App\Service\UserServiceInterface;
 use Jwt\Handler\JwtAuthMiddleware;
+use Mezzio\Authentication\DefaultUser;
+use Mezzio\Authentication\UserInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -31,8 +33,12 @@ class UserMiddleware implements MiddlewareInterface
             'email' => $token['user']->email,
         ]);
 
+        $ui = new DefaultUser($user->getEmail(), [$user->getRole()]);
+
         return $handler->handle(
-            $request->withAttribute(self::class, $user)
+            $request
+                ->withAttribute(self::class, $user)
+                ->withAttribute(UserInterface::class, $ui)
         );
     }
 }

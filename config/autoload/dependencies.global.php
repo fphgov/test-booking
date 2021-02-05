@@ -2,9 +2,13 @@
 
 declare(strict_types=1);
 
+use Mezzio\Authorization\Acl\LaminasAcl;
+use Mezzio\Authorization\AuthorizationInterface;
+
 return [
     'dependencies' => [
         'aliases' => [
+            AuthorizationInterface::class  => LaminasAcl::class,
             'doctrine.entity_manager.orm_default' => \Doctrine\ORM\EntityManagerInterface::class,
         ],
 
@@ -12,6 +16,8 @@ return [
 
         ],
         'factories'  => [
+            AuthorizationInterface::class => LaminasAclFactory::class,
+
             App\Listener\LoggingErrorListener::class    => App\Listener\LoggingErrorListenerFactory::class,
             Laminas\Db\Adapter\AdapterInterface::class  => Laminas\Db\Adapter\AdapterServiceFactory::class,
             \Doctrine\ORM\EntityManagerInterface::class => \Roave\PsrContainerDoctrine\EntityManagerFactory::class,
