@@ -128,7 +128,7 @@ A fájlban definiálva vannak `expose` és `ports` attributomok. Mind a kettő p
 Az alkalmazás szolgáltatás függősei elindítása, Docker image építése a következő paranccsal történik:
 
 ```
-docker-compose up -f docker-compose.production.yml --build -d
+docker-compose -f docker-compose.production.yml up --build -d
 ```
 
 Lehetőség van a naplófájlokat streamelni a konzolra a következő paranccsal:
@@ -145,7 +145,7 @@ Az űrlap a botok kivédéséhez Google reCaptcha v3-at használ. Ehhez való ku
 
 #### Frontend buildelése
 
-A frontend repository leírásában foglaltak alapján a buildelt kódot, át kell másolni a `public` mappába.
+A test-booking-frontend repository leírásában foglaltak alapján a buildelt kódot (./public/*) át kell másolni a test-booking (jelen repository-hoz tartozó) `public` mappába. Ezután lesz képes a szerver kiszolgálni a frontend web applikációját a 80-as porton.
 
 #### Admin hozzáférést létrehozása
 
