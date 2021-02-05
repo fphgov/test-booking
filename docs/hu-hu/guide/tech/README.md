@@ -137,7 +137,9 @@ Lehetőség van a naplófájlokat streamelni a konzolra a következő paranccsal
 docker-compose logs -f
 ```
 
-*TIPP: A docker-compose inditásánál lefut a `setup.sh` script, ez hosszabb ideig is eltarthat, akkor végződik (és futott le sikeresen), amikor azt írja a log, hogy `INFO exited: setup (exit status 0; expected)`*
+*TIPP: A docker-compose inditásánál lefut a `setup.sh` script, ez hosszabb ideig is eltarthat, akkor végződik (és futott le sikeresen), amikor azt írja a log, hogy `INFO exited: setup (exit status 0; expected)`
+Futtatási hiba esetén győződjön meg arról, hogy Unix szabványnak megfelelően `LF` sorvégződést használ a fájlban, `CR+LF` beállításnál a script nem futtatható.*
+
 
 #### ReCaptcha
 
