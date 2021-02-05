@@ -152,8 +152,20 @@ A test-booking-frontend repository leírásában foglaltak alapján a buildelt k
 Az alábbi parancssal létrehozható az admin user.
 
 ```
-docker exec test_booking_demo_webapp php bin/create-admin.php -f Firstname -l Lastname -e hello@onkormanyzat.hu -p asd
+docker exec test_booking_demo_webapp php bin/create-admin.php -f Firstname -l Lastname -e {email} -p {password} -r {role}
 ```
+
+#### Jogosultsági szintek (ACL - role)
+
+A rendszer rendelkezik jogosultsági szintekkel. A mindenkori legfrissebb verziót a [config/autoload/authorization.global.php](config/autoload/authorization.global.php) fájl tartalmazza.
+
+|Megnevezés     |Kódja    |
+|---------------|---------|
+|Vendég         |guest    |
+|Önkéntes       |voluntary|
+|Ügyfélszolgálat|cs       |
+|Admin          |admin    |
+|Fejlesztői     |developer|
 
 #### Helyszínek létrehozása
 

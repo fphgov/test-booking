@@ -8,7 +8,7 @@ if (PHP_SAPI !== 'cli') {
     return false;
 }
 
-$options = getopt("p:f:l:e:");
+$options = getopt("p:f:l:e:r:");
 
 chdir(__DIR__ . '/../');
 
@@ -29,10 +29,10 @@ $hash = password_hash($options['p'], PASSWORD_BCRYPT, $config['password']);
 $date = new DateTime();
 
 $user = new User();
-$user->setFirstname($options['f']);
-$user->setLastname($options['l']);
+$user->setFirstname($options['f'] ?? "Firstname");
+$user->setLastname($options['l'] ?? "Lastname");
 $user->setEmail($options['e']);
-$user->setRole("admin");
+$user->setRole($options['r'] ?? "admin");
 $user->setPassword($hash);
 $user->setCreatedAt($date);
 $user->setUpdatedAt($date);
