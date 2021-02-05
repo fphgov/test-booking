@@ -145,7 +145,7 @@ Az űrlap a botok kivédéséhez Google reCaptcha v3-at használ. Ehhez való ku
 
 #### Frontend buildelése
 
-A test-booking-frontend repository leírásában foglaltak alapján a buildelt kódot (./public/*) át kell másolni a test-booking (jelen repository-hoz tartozó) `public` mappába. Ezután lesz képes a szerver kiszolgálni a frontend web applikációját a 80-as porton.
+A test-booking-frontend repository leírásában foglaltak alapján a buildelt kódot `public` mappa tartalmát át kell másolni a test-booking (jelen repository-hoz tartozó) `public` mappába. Ezután lesz képes a szerver kiszolgálni a frontend web applikációját.
 
 #### Admin hozzáférést létrehozása
 
