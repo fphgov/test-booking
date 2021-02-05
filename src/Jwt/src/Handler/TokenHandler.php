@@ -56,6 +56,7 @@ class TokenHandler implements RequestHandlerInterface
             'firstname' => $user->getFirstname(),
             'lastname'  => $user->getLastname(),
             'email'     => $user->getEmail(),
+            'role'      => $user->getRole(),
         ];
 
         $token = $this->generateToken($userData);
