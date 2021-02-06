@@ -8,11 +8,14 @@ use App\Entity\ApplicantInterface;
 use App\Entity\AppointmentInterface;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Laminas\Log\Logger;
 use Mail\MailAdapter;
 use Pdf\Interfaces\PdfRender;
+use Spatie\IcalendarGenerator\Components\Calendar;
+use Spatie\IcalendarGenerator\Components\Event;
 use Throwable;
 
 use function preg_match;
@@ -78,11 +81,13 @@ final class NoticeService implements NoticeServiceInterface
 
             $pdf       = $this->getPdf($applicant, $appointment, 'pdf/created');
             $resultPdf = $this->getPdf($applicant, $appointment, 'pdf/result');
+            $ics       = $this->getCalendar($applicant);
 
             $this->mailAdapter
                 ->setTemplate('email/created', $tplData)
                 ->addPdfAttachment($applicant->getHumanId() . '_regisztracio_igazolas.pdf', $pdf)
                 ->addPdfAttachment($applicant->getHumanId() . '_regisztracio_eredmeny.pdf', $resultPdf)
+                ->addIcsAttachment($applicant->getHumanId() . '.ics', $ics)
                 ->send();
 
             $applicant->setNotified(true);
@@ -142,6 +147,33 @@ final class NoticeService implements NoticeServiceInterface
         unset($dompdf);
 
         return $output;
+    }
+
+    private function getCalendar(ApplicantInterface $applicant): ?string
+    {
+        $appointment = $applicant->getAppointment();
+
+        $start = $appointment->getDate();
+
+        $end = clone $start;
+        $end->modify('+15 minutes');
+
+        $event = Event::create()
+                ->name($this->config['app']['ics']['name'])
+                ->description($this->config['app']['ics']['description'])
+                ->organizer($this->config['app']['email'], $this->config['app']['municipality'])
+                ->url($this->config['app']['url'])
+                ->uniqueIdentifier($applicant->getHumanId())
+                ->startsAt($start)
+                ->endsAt($end)
+                ->withoutTimezone()
+                ->address($appointment->getPlace()->getName())
+        ;
+
+        $calendar = Calendar::create();
+        $calendar->event($event);
+
+        return $calendar->get();
     }
 
     public static function addHttp($url): string

@@ -21,6 +21,10 @@ return [
                 'replayTo' => getenv('APP_NOTIFICATION_MAIL_REPLAYTO'),
             ],
         ],
+        'ics' => [
+            'name'        => getenv('APP_ICS_NAME'),
+            'description' => getenv('APP_ICS_DESCRIPTION'),
+        ],
         'survey' => [
             'disable'  => getenv('APP_SURVEY_DISABLE'),
             'template' => getenv('APP_SURVEY_TEMPLATE'),

@@ -86,6 +86,25 @@ class MailAdapter
         return $this;
     }
 
+    public function addIcsAttachment(string $filename, string $stream): self
+    {
+        $ics              = new Part($stream);
+        $ics->type        = 'text/calendar';
+        $ics->filename    = $filename;
+        $ics->disposition = Mime::DISPOSITION_ATTACHMENT;
+        $ics->encoding    = Mime::ENCODING_BASE64;
+
+        $body = $this->message->getBody();
+
+        if ($body instanceof MimeMessage) {
+            $body->addPart($ics);
+
+            $this->message->setBody($body);
+        }
+
+        return $this;
+    }
+
     public function send(): void
     {
         $this->transport->send($this->message);

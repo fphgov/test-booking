@@ -52,6 +52,7 @@
         "phpoffice/phpspreadsheet": "^1.16",
         "ramsey/uuid": "^4.0@dev",
         "roave/psr-container-doctrine": "dev-master",
+        "spatie/icalendar-generator": "^2.0",
         "tuupola/slim-jwt-auth": "3.x-dev",
         "vlucas/phpdotenv": "^5.0@dev"
     },

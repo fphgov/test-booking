@@ -108,6 +108,8 @@ A szoftver a beállításához környezeti változókat használ. Ezt a `.env` f
 |APP_NOTIFICATION_FREQUENCY|20|-|Az alkalmazás késleltetve küldi ki az e-maileket, ezzel meghatározható, hogy percenként hány e-mail küldése lehetséges|
 |APP_NOTIFICATION_MAIL_TESTTO|"test@onkormanyzat.hu"|-|Az e-mail küldés teszteléséhez használt e-mail cím|
 |APP_NOTIFICATION_MAIL_REPLAYTO|ugyfelszolgalat@onkormanyzat.hu|-|Válasz e-mail beállítása|
+|APP_ICS_NAME|"Ingyenes gyorsztesztelés"|-|Az e-mailben mellékelt kalendár fájlhoz tartozó esemény neve|
+|APP_ICS_DESCRIPTION|"Ingyenes gyorstesztelés bővebb leírása"|-|Az e-mailben mellékelt kalendár fájlhoz tartozó esemény leírása|
 |APP_SURVEY_DISABLE|1|0, 1|Felmérő e-mail küldésének be/ki kapcsolása|
 |APP_SURVEY_TEMPLATE|"email/survey"|-|Felmérő e-mail sablonja|
 |APP_SURVEY_TIME|"18:00"|-|A felmérő e-mail küldésének ideje (szerver idő szerint)|
