@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
-use App\Service\ApplicantServiceInterface;
+use App\Model\ApplicantExportModel;
 use Interop\Container\ContainerInterface;
 
 final class ExportHandlerFactory
@@ -12,7 +12,7 @@ final class ExportHandlerFactory
     public function __invoke(ContainerInterface $container): ExportHandler
     {
         return new ExportHandler(
-            $container->get(ApplicantServiceInterface::class)
+            $container->get(ApplicantExportModel::class)
         );
     }
 }

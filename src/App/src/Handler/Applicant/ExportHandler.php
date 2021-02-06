@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
-use App\Service\ApplicantServiceInterface;
+use App\Model\ApplicantExportModel;
 use DateTime;
-use Laminas\Diactoros\Response\TextResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -16,43 +15,36 @@ use function mb_convert_encoding;
 
 final class ExportHandler implements RequestHandlerInterface
 {
-    /** @var ApplicantServiceInterface */
-    private $applicantService;
+    /** @var ApplicantExportModel */
+    private $applicantExportModel;
 
     public function __construct(
-        ApplicantServiceInterface $applicantService
+        ApplicantExportModel $applicantExportModel
     ) {
-        $this->applicantService = $applicantService;
+        $this->applicantExportModel = $applicantExportModel;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $applicantRepository = $this->applicantService->getRepository();
-
-        $appList = $applicantRepository->findBy([], [
-            'appointment' => 'ASC',
-        ]);
-
-        $applicants = [];
-        foreach ($appList as $app) {
-            $applicants[] = implode(';', [
-                $app->getHumanId(),
-                $app->getLastname(),
-                $app->getFirstname(),
-                $app->getPhone(),
-                $app->getAppointment()->getDate()->format('Y-m-d H:i'),
-                $app->getEmail(),
-            ]);
-        }
-
         $date = (new DateTime())->getTimestamp();
 
-        $csv = mb_convert_encoding(implode("\n", $applicants), 'UTF-16LE', 'UTF-8');
+        $writer = $this->applicantExportModel->getModel();
 
-        return new TextResponse($csv, 200, [
-            'Content-Type'              => 'text/csv',
-            'Content-Transfer-Encoding' => 'binary',
-            'Content-Disposition'       => "attachment; filename=export-'$date'.csv",
-        ]);
+        // $writer = $this->exportService->export($applicantList);
+
+        header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        header("Content-Disposition: attachment; filename=\"". "export-$date.xlsx" ."\"");
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-Description: File Transfer");
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate");
+        header("Content-Length: " . ob_get_length());
+
+        if (ob_get_length()) ob_end_clean();
+
+        $writer->save('php://output');
+
+        exit();
     }
 }

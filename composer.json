@@ -49,6 +49,7 @@
         "mezzio/mezzio-helpers": "^5.3",
         "mezzio/mezzio-laminasviewrenderer": "^2.2",
         "middlewares/recaptcha": "^2.0",
+        "phpoffice/phpspreadsheet": "^1.16",
         "ramsey/uuid": "^4.0@dev",
         "roave/psr-container-doctrine": "dev-master",
         "tuupola/slim-jwt-auth": "3.x-dev",

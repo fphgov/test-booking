@@ -61,6 +61,7 @@ class ConfigProvider
                 Service\NoticeServiceInterface::class         => Service\NoticeServiceFactory::class,
                 Service\EncryptServiceInterface::class        => Service\EncryptServiceFactory::class,
                 Service\ReservationServiceInterface::class    => Service\ReservationServiceFactory::class,
+                Model\ApplicantExportModel::class             => Model\ApplicantExportModelFactory::class,
             ],
         ];
     }
