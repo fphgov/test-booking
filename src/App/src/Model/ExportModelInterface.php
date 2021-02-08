@@ -8,5 +8,5 @@ use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 interface ExportModelInterface
 {
-    public function getModel(): IWriter;
+    public function getWriter(): IWriter;
 }

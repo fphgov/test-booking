@@ -11,6 +11,15 @@ use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 
 final class ApplicantExportModel implements ExportModelInterface
 {
+    public const HEADER = [
+        'Azonosító',
+        'Családnév',
+        'Utónév',
+        'Telefon',
+        'E-mail',
+        'Időpont',
+    ];
+
     private Spreadsheet $spreadsheet;
     private ApplicantServiceInterface $applicantService;
 
@@ -22,7 +31,7 @@ final class ApplicantExportModel implements ExportModelInterface
         $this->applicantService = $applicantService;
     }
 
-    public function getModel(): IWriter
+    public function getWriter(): IWriter
     {
         $applicantRepository = $this->applicantService->getRepository();
 
@@ -35,14 +44,7 @@ final class ApplicantExportModel implements ExportModelInterface
             $sep = $app->getAppointment()->getDate()->format('Y-m-d') . ' ' . $app->getAppointment()->getPlace()->getName();
 
             if (! isset($data[$sep])) {
-                $data[$sep][] = [
-                    'Azonosító',
-                    'Családnév',
-                    'Utónév',
-                    'Telefon',
-                    'E-mail',
-                    'Időpont',
-                ];
+                $data[$sep][] = self::HEADER;
             }
 
             $data[$sep][] = [

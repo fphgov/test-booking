@@ -28,9 +28,7 @@ final class ExportHandler implements RequestHandlerInterface
     {
         $date = (new DateTime())->getTimestamp();
 
-        $writer = $this->applicantExportModel->getModel();
-
-        // $writer = $this->exportService->export($applicantList);
+        $writer = $this->applicantExportModel->getWriter();
 
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         header("Content-Disposition: attachment; filename=\"". "export-$date.xlsx" ."\"");
