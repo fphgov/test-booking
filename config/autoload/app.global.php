@@ -13,6 +13,10 @@ return [
         'company_name_part_1' => getenv('APP_COMPANY_NAME_PART_1'),
         'company_name_part_2' => getenv('APP_COMPANY_NAME_PART_2'),
         'company_full_info'   => getenv('APP_COMPANY_FULL_INFO'),
+        'appointment'         => [
+            'expired_time_hour' => getenv('APP_APPOINTMENT_EXPIRED_TIME_HOUR'),
+            'expired_time_min'  => getenv('APP_APPOINTMENT_EXPIRED_TIME_MIN'),
+        ],
         'notification'        => [
             'frequency' => (int)getenv('APP_NOTIFICATION_FREQUENCY'),
             'mail'      => [

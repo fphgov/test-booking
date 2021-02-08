@@ -2,7 +2,7 @@
 
 ## Requirements
 
-We recommend you have a completely new Linux-based VPS (Virtual Private Server). This way practically no other web applications are running on this server, meaning no conflicts, less risk to take, more secure and up-to-date O/S at startup. 
+We recommend you have a completely new Linux-based VPS (Virtual Private Server). This way practically no other web applications are running on this server, meaning no conflicts, less risk to take, more secure and up-to-date O/S at startup.
 
 * VPS server (depending on expected load, minimum 2 CPU, 8 GB RAM recommended)
 * Ubuntu (latest version)
@@ -10,13 +10,13 @@ We recommend you have a completely new Linux-based VPS (Virtual Private Server).
 * Subdomain address (e.g. covidtest.institute.gov)
 * SMTP mail server (being a VPS, it's considered an external service provider in configuration)
 
-*HINT: For security reasons, you may want to configure the database server on a separate VPS. Close all unused ports and open the database connection only to the application's VPS. In this case, `db` section and all its references must be removed from the `docker-compose.production.yml` file. Settings for the database connection must be defined in .env*    
+*HINT: For security reasons, you may want to configure the database server on a separate VPS. Close all unused ports and open the database connection only to the application's VPS. In this case, `db` section and all its references must be removed from the `docker-compose.production.yml` file. Settings for the database connection must be defined in .env*
 
 ## Operating specifications
 
 ### Basic API specs
 
-We have separate backend and frontend repositories. Communication between them takes place via API. Important to note that connection should be made via encrypted `https`. The frontend must be built separately, wording and logos must all be replaced there. After building frontend, its `public` folder content must be copied to the `public` folder of the backend. 
+We have separate backend and frontend repositories. Communication between them takes place via API. Important to note that connection should be made via encrypted `https`. The frontend must be built separately, wording and logos must all be replaced there. After building frontend, its `public` folder content must be copied to the `public` folder of the backend.
 
 ### Data encryption method
 
@@ -109,6 +109,8 @@ Our software uses environment variables located in `.env` file. You can find a s
 |APP_NOTIFICATION_FREQUENCY|20|-|Emails are getting sent with a delay, frequency of email / minute can be set here|
 |APP_NOTIFICATION_MAIL_TESTTO|"test@institute.gov"|-|Email address for testing purpose|
 |APP_NOTIFICATION_MAIL_REPLAYTO|support@institute.gov|-|'replay to' address|
+|APP_APPOINTMENT_EXPIRED_TIME_HOUR|7|UTC+1 (0-24)|Same day expiration date (hours)|
+|APP_APPOINTMENT_EXPIRED_TIME_MIN|0|UTC+1 (0-59)|Same day expiration date (minutes)|
 |APP_ICS_NAME|"Free Covid test"|-|Name of event in calendar file attached in email|
 |APP_ICS_DESCRIPTION|"Free Covid test details"|-|Description of event in calendar file attached in email|
 |APP_SURVEY_DISABLE|1|0, 1|Survey email on/off|

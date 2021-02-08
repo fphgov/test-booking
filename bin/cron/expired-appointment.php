@@ -10,7 +10,7 @@ if (PHP_SAPI !== 'cli') {
 
 chdir(__DIR__ . '/../../');
 
-use App\Service\ReservationServiceInterface;
+use App\Service\AppointmentServiceInterface;
 
 require 'vendor/autoload.php';
 
@@ -20,6 +20,6 @@ $dotenv->load();
 $config    = include 'config/config.php';
 $container = require 'config/container.php';
 
-$reservationService = $container->get(ReservationServiceInterface::class);
+$appointmentService = $container->get(AppointmentServiceInterface::class);
 
-$reservationService->clearExpiredData();
+$appointmentService->clearExpiredData();

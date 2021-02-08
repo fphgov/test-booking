@@ -14,7 +14,10 @@ final class AppointmentServiceFactory
      */
     public function __invoke(ContainerInterface $container)
     {
+        $config = $container->has('config') ? $container->get('config') : [];
+
         return new AppointmentService(
+            $config,
             $container->get(EntityManagerInterface::class)
         );
     }

@@ -28,8 +28,12 @@ final class AppointmentService implements AppointmentServiceInterface
     /** @var PlaceRepositoryInterface */
     protected $placeRepository;
 
-    public function __construct(EntityManagerInterface $em)
+    /** @var array */
+    protected $config;
+
+    public function __construct(array $config, EntityManagerInterface $em)
     {
+        $this->config                = $config;
         $this->em                    = $em;
         $this->appointmentRepository = $this->em->getRepository(Appointment::class);
         $this->placeRepository       = $this->em->getRepository(Place::class);
@@ -38,6 +42,26 @@ final class AppointmentService implements AppointmentServiceInterface
     public function getRepository(): AppointmentRepositoryInterface
     {
         return $this->appointmentRepository;
+    }
+
+    public function clearExpiredData(): void
+    {
+        $appointments = $this->appointmentRepository->findAll();
+
+        foreach ($appointments as $appointment) {
+            $boundaryDate = new DateTime();
+            $boundaryDate->add(new DateInterval('P1D'));
+            $boundaryDate = $boundaryDate->setTime(
+                (int) $this->config['app']['appointment']['expired_time_hour'],
+                (int) $this->config['app']['appointment']['expired_time_min'],
+            );
+
+            if ($appointment->getAvailable() && $appointment->getDate() <= $boundaryDate) {
+                $appointment->setBanned(true);
+            }
+        }
+
+        $this->em->flush();
     }
 
     private function getEmptyEntities(bool $normalLunchTime = true): array
