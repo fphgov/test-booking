@@ -30,7 +30,7 @@ final class CheckGetHandler implements RequestHandlerInterface
         $humanId     = $routeResult->getMatchedParams()['humanId'];
 
         $applicant = $applicantRepository->findOneBy([
-            'humanId' => $humanId
+            'humanId' => $humanId,
         ]);
 
         return new JsonResponse([

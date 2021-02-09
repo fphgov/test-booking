@@ -19,7 +19,6 @@ use function error_log;
 use function is_array;
 use function microtime;
 use function openssl_random_pseudo_bytes;
-use function strip_tags;
 
 class MailAdapter
 {

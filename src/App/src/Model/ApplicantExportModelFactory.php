@@ -23,8 +23,7 @@ final class ApplicantExportModelFactory
             ->setLastModifiedBy("Test-booking")
             ->setTitle("Export")
             ->setSubject("Export")
-            ->setDescription("Export")
-        ;
+            ->setDescription("Export");
 
         return new ApplicantExportModel(
             $spreadsheet,

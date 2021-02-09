@@ -6,8 +6,8 @@ namespace App\Model;
 
 use App\Service\ApplicantServiceInterface;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 final class ApplicantExportModel implements ExportModelInterface
 {

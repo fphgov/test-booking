@@ -8,7 +8,6 @@ use App\Entity\ApplicantInterface;
 use App\Entity\AppointmentInterface;
 use chillerlan\QRCode\QRCode;
 use chillerlan\QRCode\QROptions;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Laminas\Log\Logger;
@@ -119,23 +118,21 @@ final class NoticeService implements NoticeServiceInterface
         $qrData = self::addHttp($this->config['app']['url_admin'] . '#/checks/' . $applicant->getHumanId());
 
         $tplData = [
-            'fullName'   => $applicant->getLastname() . ' ' . $applicant->getFirstname(),
-            'humanID'    => $applicant->getHumanId(),
-            'time'       => $appointment->getDate()->format('Y.m.d. H.i'),
-            'place'      => $appointment->getPlace()->getName(),
-            'address'    => $applicant->getAddress(),
-            'taj'        => $applicant->getTaj(),
-            'phone'      => $applicant->getPhone(),
-            'email'      => $applicant->getEmail(),
-            'birthPlace' => $applicant->getBirthdayPlace(),
-            'birthday'   => $applicant->getBirthday()->format('Y.m.d.'),
-            'signDate'   => $appointment->getDate()->format('Y.m.d.'),
-
+            'fullName'             => $applicant->getLastname() . ' ' . $applicant->getFirstname(),
+            'humanID'              => $applicant->getHumanId(),
+            'time'                 => $appointment->getDate()->format('Y.m.d. H.i'),
+            'place'                => $appointment->getPlace()->getName(),
+            'address'              => $applicant->getAddress(),
+            'taj'                  => $applicant->getTaj(),
+            'phone'                => $applicant->getPhone(),
+            'email'                => $applicant->getEmail(),
+            'birthPlace'           => $applicant->getBirthdayPlace(),
+            'birthday'             => $applicant->getBirthday()->format('Y.m.d.'),
+            'signDate'             => $appointment->getDate()->format('Y.m.d.'),
             'infoCompanyNamePart1' => $this->config['app']['company_name_part_1'],
             'infoCompanyNamePart2' => $this->config['app']['company_name_part_2'],
             'infoCompanyFullInfo'  => $this->config['app']['company_full_info'],
-
-            'qrCode' => $this->getQRCode($qrData),
+            'qrCode'               => $this->getQRCode($qrData),
         ];
 
         $dompdf->loadHtml($this->pdfRender->render($template, $tplData));
@@ -149,7 +146,7 @@ final class NoticeService implements NoticeServiceInterface
         return $output;
     }
 
-    private function getCalendar(ApplicantInterface $applicant): ?string
+    private function getCalendar(ApplicantInterface $applicant): string
     {
         $appointment = $applicant->getAppointment();
 
@@ -167,8 +164,7 @@ final class NoticeService implements NoticeServiceInterface
                 ->startsAt($start)
                 ->endsAt($end)
                 ->withoutTimezone()
-                ->address($appointment->getPlace()->getName())
-        ;
+                ->address($appointment->getPlace()->getName());
 
         $calendar = Calendar::create();
         $calendar->event($event);
@@ -176,9 +172,9 @@ final class NoticeService implements NoticeServiceInterface
         return $calendar->get();
     }
 
-    public static function addHttp($url): string
+    public static function addHttp(string $url): string
     {
-       if (! preg_match("~^(?:f|ht)tps?://~i", $url)) {
+        if (! preg_match("~^(?:f|ht)tps?://~i", $url)) {
             $url = "http://" . $url;
         }
 

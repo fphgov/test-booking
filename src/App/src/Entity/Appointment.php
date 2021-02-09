@@ -31,7 +31,7 @@ class Appointment implements JsonSerializable, AppointmentInterface
     ];
 
     /**
-     * @ORM\ManyToOne(targetEntity="PlaceInterface")
+     * @ORM\ManyToOne(targetEntity="PlaceInterface", cascade={"persist"})
      * @ORM\JoinColumn(name="placeId", referencedColumnName="id", nullable=false)
      *
      * @var PlaceInterface

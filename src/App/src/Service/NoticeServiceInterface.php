@@ -10,5 +10,5 @@ interface NoticeServiceInterface
 {
     public function sendEmail(ApplicantInterface $applicant): void;
 
-    public static function addHttp($url): string;
+    public static function addHttp(string $url): string;
 }

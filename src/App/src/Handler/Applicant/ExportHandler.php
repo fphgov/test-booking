@@ -10,8 +10,9 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-use function implode;
-use function mb_convert_encoding;
+use function header;
+use function ob_end_clean;
+use function ob_get_length;
 
 final class ExportHandler implements RequestHandlerInterface
 {
@@ -31,7 +32,7 @@ final class ExportHandler implements RequestHandlerInterface
         $writer = $this->applicantExportModel->getWriter();
 
         header("Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-        header("Content-Disposition: attachment; filename=\"". "export-$date.xlsx" ."\"");
+        header("Content-Disposition: attachment; filename=\"export-$date.xlsx\"");
         header("Content-Transfer-Encoding: Binary");
         header("Content-Description: File Transfer");
         header("Pragma: public");
@@ -39,7 +40,9 @@ final class ExportHandler implements RequestHandlerInterface
         header("Cache-Control: must-revalidate");
         header("Content-Length: " . ob_get_length());
 
-        if (ob_get_length()) ob_end_clean();
+        if (ob_get_length()) {
+            ob_end_clean();
+        }
 
         $writer->save('php://output');
 

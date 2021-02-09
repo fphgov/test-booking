@@ -53,3 +53,4 @@ supervisord.pid
 
 .vscode
 .scannerwork
+.phpunit.result.cache

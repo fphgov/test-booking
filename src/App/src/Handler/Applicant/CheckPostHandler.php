@@ -6,10 +6,7 @@ namespace App\Handler\Applicant;
 
 use App\Service\ApplicantServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Laminas\Diactoros\Response\JsonResponse;
-use Laminas\Mail\Header\HeaderName;
-use Laminas\Validator;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -41,7 +38,7 @@ final class CheckPostHandler implements RequestHandlerInterface
         $humanId     = $routeResult->getMatchedParams()['humanId'];
 
         $applicant = $applicantRepository->findOneBy([
-            'humanId' => $humanId
+            'humanId' => $humanId,
         ]);
 
         if (! $applicant) {
