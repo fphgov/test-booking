@@ -32,3 +32,13 @@ if [ $MODE = "production" ]; then
 
   chmod 0644 bin/cron/clear-reservation.php bin/cron/notifications.php bin/cron/survey.php
 fi
+
+if [[ ! -e /data/log/audit.log ]]; then
+    mkdir -p /data/log
+    touch /data/log/audit.log
+fi
+
+if [[ ! -e /data/log/error.log ]]; then
+    mkdir -p /data/log
+    touch /data/log/error.log
+fi

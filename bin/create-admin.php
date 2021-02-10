@@ -34,6 +34,7 @@ $user->setLastname($options['l'] ?? "Lastname");
 $user->setEmail($options['e']);
 $user->setRole($options['r'] ?? "admin");
 $user->setPassword($hash);
+$user->setActive(true);
 $user->setCreatedAt($date);
 $user->setUpdatedAt($date);
 
