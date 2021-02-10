@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AppTest\Service;
+namespace AppTest\Generator;
 
 use App\Generator\AppointmentGeneratorOptions;
 use DateTime;
