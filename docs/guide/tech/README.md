@@ -43,6 +43,7 @@ You can install the Docker by running the commands below.
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 # apt update
 # apt install docker-ce
+# apt install docker-compose
 ```
 
 #### Running without root privileges (Optional)

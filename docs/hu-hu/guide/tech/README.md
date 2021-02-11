@@ -42,6 +42,7 @@ A következő parancsok lefuttatásával telepíthető a Docker.
 # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
 # apt update
 # apt install docker-ce
+# apt install docker-compose
 ```
 
 #### Futtatás root jogosultság nélkül (Opcionális)
