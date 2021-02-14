@@ -27,16 +27,8 @@ final class GenerateHandler implements RequestHandlerInterface
     {
         $body = $request->getParsedBody();
 
-        if (! isset($body['options'])) {
-            return new JsonResponse([
-                'errors' => [
-                    'options' => 'Missing options parameter',
-                ],
-            ], 422);
-        }
-
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->parseFromArray($body['options']);
+        $appGenOptions->parseFromArray($body);
 
         try {
             $this->appointmentService->generateEmptyEntities($appGenOptions);
