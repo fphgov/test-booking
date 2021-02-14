@@ -41,9 +41,16 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     ], 'app.api.appointment.reservation');
 
     // Admin
-    $app->post('/admin/api/login', [
-        Jwt\Handler\TokenHandler::class,
-    ], 'admin.api.login');
+    if (getenv('NODE_ENV') === 'development') {
+        $app->post('/admin/api/login', [
+            Jwt\Handler\TokenHandler::class,
+        ], 'admin.api.login');
+    } else {
+        $app->post('/admin/api/login', [
+            \Middlewares\Recaptcha::class,
+            Jwt\Handler\TokenHandler::class,
+        ], 'admin.api.login');
+    }
 
     if (getenv('NODE_ENV') === 'development') {
         $app->get('/admin/api/cache/clear', [
@@ -128,9 +135,9 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         App\Handler\Applicant\CheckPostHandler::class
     ], 'admin.api.check.post');
 
-    // $app->post('/admin/api/generate/appointment', [
-    //     Jwt\Handler\JwtAuthMiddleware::class,
-    //     App\Middleware\UserMiddleware::class,
-    //     App\Handler\Appointment\GenerateHandler::class
-    // ], 'admin.api.generate.appointment');
+    $app->post('/admin/api/generate/appointment', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        App\Handler\Appointment\GenerateHandler::class
+    ], 'admin.api.generate.appointment');
 };
