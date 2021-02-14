@@ -13,11 +13,9 @@ class AppointmentGeneratorOptionsTest extends TestCase
     public function testArrayParser()
     {
         $options = [
-            'startTime' => 8,
-            'endTime'   => 18,
-            'startDate' => '2021-02-08',
-            'endDate'   => '2021-02-12',
-            'interval'  => [
+            'startDateTime' => '2021-02-08 08:00',
+            'endDateTime'   => '2021-02-12 18:00',
+            'interval'      => [
                 0  => 1,
                 10 => 1,
                 20 => 1,
@@ -30,10 +28,10 @@ class AppointmentGeneratorOptionsTest extends TestCase
         $appGenOptions = new AppointmentGeneratorOptions();
         $appGenOptions->parseFromArray($options);
 
-        $this->assertEquals($appGenOptions->getStartTime(), $options['startTime']);
-        $this->assertEquals($appGenOptions->getEndTime(), $options['endTime']);
-        $this->assertEquals($appGenOptions->getStartDate(), new DateTime('2021-02-08 08:00:00.00'));
-        $this->assertEquals($appGenOptions->getEndDate(), new DateTime('2021-02-12 18:00:00.00'));
+        $this->assertEquals($appGenOptions->getStartTime(), 8);
+        $this->assertEquals($appGenOptions->getEndTime(), 18);
+        $this->assertEquals($appGenOptions->getStartDateTime(), new DateTime('2021-02-08 08:00'));
+        $this->assertEquals($appGenOptions->getEndDateTime(), new DateTime('2021-02-12 18:00'));
         $this->assertEquals($appGenOptions->getIntervalMatrix(), $options['interval']);
     }
 }

@@ -67,10 +67,8 @@ class AppointmentServiceTest extends AbstractServiceTest
         $this->assertCount(2, $places);
 
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 1,

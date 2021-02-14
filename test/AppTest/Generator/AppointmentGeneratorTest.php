@@ -17,10 +17,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testNormalLunchTime()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
 
         $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
@@ -31,10 +29,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testAbnormalLunchTime()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(false);
 
         $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
@@ -45,10 +41,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testOneStationAndOnePerTenMinutes()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
 
         $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
@@ -62,10 +56,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testFourStationAndOnePerTenMinutes()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 4,
@@ -84,13 +76,111 @@ class AppointmentGeneratorTest extends TestCase
         $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[215]);
     }
 
+    public function testDifferentStationAndOnePerTenMinutesFullCheck()
+    {
+        $appGenOptions = new AppointmentGeneratorOptions();
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
+        $appGenOptions->setNormalLunchTime(true);
+        $appGenOptions->setIntervalMatrix([
+            0  => 1,
+            10 => 2,
+            20 => 1,
+            30 => 2,
+            40 => 1,
+            50 => 2,
+        ]);
+
+        $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
+
+        $this->assertEquals(new DateTime('2021-02-08 08:00'), $appoints[0]);
+        $this->assertEquals(new DateTime('2021-02-08 08:10'), $appoints[1]);
+        $this->assertEquals(new DateTime('2021-02-08 08:20'), $appoints[2]);
+        $this->assertEquals(new DateTime('2021-02-08 08:30'), $appoints[3]);
+        $this->assertEquals(new DateTime('2021-02-08 08:40'), $appoints[4]);
+        $this->assertEquals(new DateTime('2021-02-08 08:50'), $appoints[5]);
+        $this->assertEquals(new DateTime('2021-02-08 09:00'), $appoints[6]);
+        $this->assertEquals(new DateTime('2021-02-08 09:10'), $appoints[7]);
+        $this->assertEquals(new DateTime('2021-02-08 09:20'), $appoints[8]);
+        $this->assertEquals(new DateTime('2021-02-08 09:30'), $appoints[9]);
+        $this->assertEquals(new DateTime('2021-02-08 09:40'), $appoints[10]);
+        $this->assertEquals(new DateTime('2021-02-08 09:50'), $appoints[11]);
+        $this->assertEquals(new DateTime('2021-02-08 10:00'), $appoints[12]);
+        $this->assertEquals(new DateTime('2021-02-08 10:10'), $appoints[13]);
+        $this->assertEquals(new DateTime('2021-02-08 10:20'), $appoints[14]);
+        $this->assertEquals(new DateTime('2021-02-08 10:30'), $appoints[15]);
+        $this->assertEquals(new DateTime('2021-02-08 10:40'), $appoints[16]);
+        $this->assertEquals(new DateTime('2021-02-08 10:50'), $appoints[17]);
+        $this->assertEquals(new DateTime('2021-02-08 11:00'), $appoints[18]);
+        $this->assertEquals(new DateTime('2021-02-08 11:10'), $appoints[19]);
+        $this->assertEquals(new DateTime('2021-02-08 11:20'), $appoints[20]);
+        $this->assertEquals(new DateTime('2021-02-08 11:30'), $appoints[21]);
+        $this->assertEquals(new DateTime('2021-02-08 11:40'), $appoints[22]);
+        $this->assertEquals(new DateTime('2021-02-08 11:50'), $appoints[23]);
+        $this->assertEquals(new DateTime('2021-02-08 13:00'), $appoints[24]);
+        $this->assertEquals(new DateTime('2021-02-08 13:10'), $appoints[25]);
+        $this->assertEquals(new DateTime('2021-02-08 13:20'), $appoints[26]);
+        $this->assertEquals(new DateTime('2021-02-08 13:30'), $appoints[27]);
+        $this->assertEquals(new DateTime('2021-02-08 13:40'), $appoints[28]);
+        $this->assertEquals(new DateTime('2021-02-08 13:50'), $appoints[29]);
+        $this->assertEquals(new DateTime('2021-02-08 14:00'), $appoints[30]);
+        $this->assertEquals(new DateTime('2021-02-08 14:10'), $appoints[31]);
+        $this->assertEquals(new DateTime('2021-02-08 14:20'), $appoints[32]);
+        $this->assertEquals(new DateTime('2021-02-08 14:30'), $appoints[33]);
+        $this->assertEquals(new DateTime('2021-02-08 14:40'), $appoints[34]);
+        $this->assertEquals(new DateTime('2021-02-08 14:50'), $appoints[35]);
+        $this->assertEquals(new DateTime('2021-02-08 15:00'), $appoints[36]);
+        $this->assertEquals(new DateTime('2021-02-08 15:10'), $appoints[37]);
+        $this->assertEquals(new DateTime('2021-02-08 15:20'), $appoints[38]);
+        $this->assertEquals(new DateTime('2021-02-08 15:30'), $appoints[39]);
+        $this->assertEquals(new DateTime('2021-02-08 15:40'), $appoints[40]);
+        $this->assertEquals(new DateTime('2021-02-08 15:50'), $appoints[41]);
+        $this->assertEquals(new DateTime('2021-02-08 16:00'), $appoints[42]);
+        $this->assertEquals(new DateTime('2021-02-08 16:10'), $appoints[43]);
+        $this->assertEquals(new DateTime('2021-02-08 16:20'), $appoints[44]);
+        $this->assertEquals(new DateTime('2021-02-08 16:30'), $appoints[45]);
+        $this->assertEquals(new DateTime('2021-02-08 16:40'), $appoints[46]);
+        $this->assertEquals(new DateTime('2021-02-08 16:50'), $appoints[47]);
+        $this->assertEquals(new DateTime('2021-02-08 17:00'), $appoints[48]);
+        $this->assertEquals(new DateTime('2021-02-08 17:10'), $appoints[49]);
+        $this->assertEquals(new DateTime('2021-02-08 17:20'), $appoints[50]);
+        $this->assertEquals(new DateTime('2021-02-08 17:30'), $appoints[51]);
+        $this->assertEquals(new DateTime('2021-02-08 17:40'), $appoints[52]);
+        $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[53]);
+        $this->assertEquals(new DateTime('2021-02-08 08:10'), $appoints[54]);
+        $this->assertEquals(new DateTime('2021-02-08 08:30'), $appoints[55]);
+        $this->assertEquals(new DateTime('2021-02-08 08:50'), $appoints[56]);
+        $this->assertEquals(new DateTime('2021-02-08 09:10'), $appoints[57]);
+        $this->assertEquals(new DateTime('2021-02-08 09:30'), $appoints[58]);
+        $this->assertEquals(new DateTime('2021-02-08 09:50'), $appoints[59]);
+        $this->assertEquals(new DateTime('2021-02-08 10:10'), $appoints[60]);
+        $this->assertEquals(new DateTime('2021-02-08 10:30'), $appoints[61]);
+        $this->assertEquals(new DateTime('2021-02-08 10:50'), $appoints[62]);
+        $this->assertEquals(new DateTime('2021-02-08 11:10'), $appoints[63]);
+        $this->assertEquals(new DateTime('2021-02-08 11:30'), $appoints[64]);
+        $this->assertEquals(new DateTime('2021-02-08 11:50'), $appoints[65]);
+        $this->assertEquals(new DateTime('2021-02-08 13:10'), $appoints[66]);
+        $this->assertEquals(new DateTime('2021-02-08 13:30'), $appoints[67]);
+        $this->assertEquals(new DateTime('2021-02-08 13:50'), $appoints[68]);
+        $this->assertEquals(new DateTime('2021-02-08 14:10'), $appoints[69]);
+        $this->assertEquals(new DateTime('2021-02-08 14:30'), $appoints[70]);
+        $this->assertEquals(new DateTime('2021-02-08 14:50'), $appoints[71]);
+        $this->assertEquals(new DateTime('2021-02-08 15:10'), $appoints[72]);
+        $this->assertEquals(new DateTime('2021-02-08 15:30'), $appoints[73]);
+        $this->assertEquals(new DateTime('2021-02-08 15:50'), $appoints[74]);
+        $this->assertEquals(new DateTime('2021-02-08 16:10'), $appoints[75]);
+        $this->assertEquals(new DateTime('2021-02-08 16:30'), $appoints[76]);
+        $this->assertEquals(new DateTime('2021-02-08 16:50'), $appoints[77]);
+        $this->assertEquals(new DateTime('2021-02-08 17:10'), $appoints[78]);
+        $this->assertEquals(new DateTime('2021-02-08 17:30'), $appoints[79]);
+        $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[80]);
+    }
+
     public function testDifferentStationAndOnePerTenMinutes()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 1,
@@ -114,17 +204,13 @@ class AppointmentGeneratorTest extends TestCase
 
         $this->assertFalse($this->checkLunchTime($appGenOptions, $appoints));
         $this->assertCount(189, $appoints);
-        $this->assertEquals(new DateTime('2021-02-08 08:00'), $appoints[0]);
-        $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[188]);
     }
 
     public function testFourStationAndOnePerTenMinutesWithMultiDay()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-12"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-12 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 4,
@@ -146,10 +232,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testFourStationAndOnePerTenMinutesWithMultiDayAM()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(12);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 12:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 1,
@@ -171,10 +255,8 @@ class AppointmentGeneratorTest extends TestCase
     public function testFourStationAndOnePerTenMinutesWithMultiDayPM()
     {
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(12);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 12:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 1,
@@ -191,6 +273,34 @@ class AppointmentGeneratorTest extends TestCase
         $this->assertCount(30, $appoints);
         $this->assertEquals(new DateTime('2021-02-08 13:00'), $appoints[0]);
         $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[29]);
+    }
+
+    public function testNotFullStartHour()
+    {
+        $appGenOptions = new AppointmentGeneratorOptions();
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:20"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
+        $appGenOptions->setNormalLunchTime(true);
+
+        $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
+
+        $this->assertCount(52, $appoints);
+        $this->assertEquals(new DateTime('2021-02-08 08:20'), $appoints[0]);
+        $this->assertEquals(new DateTime('2021-02-08 17:50'), $appoints[51]);
+    }
+
+    public function testNotFullEndHour()
+    {
+        $appGenOptions = new AppointmentGeneratorOptions();
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 17:40"));
+        $appGenOptions->setNormalLunchTime(true);
+
+        $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
+
+        $this->assertCount(52, $appoints);
+        $this->assertEquals(new DateTime('2021-02-08 08:00'), $appoints[0]);
+        $this->assertEquals(new DateTime('2021-02-08 17:30'), $appoints[51]);
     }
 
     private function checkLunchTime(

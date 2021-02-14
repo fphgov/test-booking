@@ -8,8 +8,6 @@ use DateInterval;
 use DateTime;
 
 use function array_merge;
-use function array_values;
-use function max;
 use function str_pad;
 
 use const STR_PAD_LEFT;
@@ -18,15 +16,13 @@ final class AppointmentGenerator
 {
     public function getDates(AppointmentGeneratorOptionsInterface $options): array
     {
-        $incrementDay  = (int) $options->getStartDate()->format('d');
-        $diffDateCount = (int) $options->getStartDate()->diff($options->getEndDate())->format('%a');
+        $incrementDay  = (int) $options->getStartDateTime()->format('d');
+        $diffDateCount = (int) $options->getStartDateTime()->diff($options->getEndDateTime())->format('%a');
 
         $appoints      = [];
-        $incrementDate = clone $options->getStartDate();
+        $incrementDate = clone $options->getStartDateTime();
 
         $intervalMatrix = $options->getIntervalMatrix();
-
-        $stationMax = max(array_values($intervalMatrix));
 
         for ($i = 0; $i <= $diffDateCount; $i++) {
             $intervalMax = [];
@@ -38,42 +34,53 @@ final class AppointmentGenerator
 
             $incrementDateStation = clone $incrementDate;
 
-            for ($station = 0; $station < $stationMax; $station++) {
+            for ($station = 0; $station < $options->getMaxIntervalValues(); $station++) {
                 $incrementDateStation = clone $incrementDate;
 
                 $stationsList = [];
-                while ($incrementDateStation < new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " " . str_pad((string) $options->getEndTime(), 2, '0', STR_PAD_LEFT) . ":00")) {
+                while ($incrementDateStation < new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " " . $options->getEndDateTime()->format('H:i'))) {
                     if ($options->getNormalLunchTime()) {
                         if (
                             ($incrementDateStation >= new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " 12:00")) &&
                             ($incrementDateStation < new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " 13:00"))
                         ) {
-                            $intervalMax[(int) $incrementDateStation->format('i')]--;
+                                $intervalMax[(int) $incrementDateStation->format('i')]--;
 
-                            $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
+                                $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
 
-                            continue;
+                                continue;
                         }
                     } else {
                         if (
                             ($incrementDateStation >= new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " 13:00")) &&
                             ($incrementDateStation < new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " 14:00"))
                         ) {
-                            $intervalMax[(int) $incrementDateStation->format('i')]--;
+                                $intervalMax[(int) $incrementDateStation->format('i')]--;
 
-                            $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
+                                $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
 
                             continue;
                         }
                     }
 
-                    if ($intervalMax[(int) $incrementDateStation->format('i')] <= 0) {
+                    if ($intervalMax[(int) $incrementDateStation->format('i')] < 0) {
                         $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
 
                         continue;
                     }
 
-                    $intervalMax[(int) $incrementDateStation->format('i')]--;
+                    if ($options->hasDiffInterval()) {
+                        $intervalMax[(int) $incrementDateStation->format('i')]--;
+
+                        if ($intervalMax[(int) $incrementDateStation->format('i')] < 0) {
+                            $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
+
+                            continue;
+                        }
+                    } else {
+                        $intervalMax[(int) $incrementDateStation->format('i')]--;
+                    }
+
                     $stationsList[] = clone $incrementDateStation;
 
                     $incrementDateStation->add(new DateInterval('PT' . $options->getInterval() . 'M'));
@@ -84,7 +91,7 @@ final class AppointmentGenerator
 
             $incrementDay++;
 
-            $incrementDate = clone new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " " . str_pad((string) $options->getStartTime(), 2, '0', STR_PAD_LEFT) . ":00");
+            $incrementDate = clone new DateTime($incrementDateStation->format('Y-m-') . str_pad((string) $incrementDay, 2, '0', STR_PAD_LEFT) . " " . $options->getStartDateTime()->format('H:i'));
         }
 
         return $appoints;
