@@ -18,7 +18,7 @@ if [ $MODE = "development" ]; then
 
   composer db-update
 
-  chmod 0644 bin/cron/clear-reservation.php bin/cron/notifications.php bin/cron/survey.php
+  chmod 0644 bin/cron/clear-reservation.php bin/cron/notifications.php bin/cron/survey.php bin/cron/reminder.php
 fi
 
 if [ $MODE = "production" ]; then
@@ -30,7 +30,7 @@ if [ $MODE = "production" ]; then
 
   composer db-update
 
-  chmod 0644 bin/cron/clear-reservation.php bin/cron/notifications.php bin/cron/survey.php
+  chmod 0644 bin/cron/clear-reservation.php bin/cron/notifications.php bin/cron/survey.php bin/cron/reminder.php
 fi
 
 mkdir -p data/cache/DoctrineEntityProxy

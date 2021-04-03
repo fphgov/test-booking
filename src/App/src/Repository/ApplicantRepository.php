@@ -93,4 +93,25 @@ final class ApplicantRepository extends EntityRepository implements ApplicantRep
 
         return $qb->getQuery()->getResult();
     }
+
+    /** @return Applicant[] */
+    public function getApplicantsToReminder(DateTime $date, int $limit = 10)
+    {
+        $from = new DateTime($date->format("Y-m-d") . " 00:00:00");
+        $to   = new DateTime($date->format("Y-m-d") . " 23:59:59");
+
+        $qb = $this->createQueryBuilder('a');
+        $qb
+            ->innerJoin(Appointment::class, 'app', Join::WITH, 'app.id = a.appointment')
+            ->where('app.date BETWEEN :from AND :to')
+            ->andWhere('a.reminder = :reminder')
+            ->andWhere('a.attended = :attended')
+            ->setParameter('from', $from)
+            ->setParameter('to', $to)
+            ->setParameter('reminder', false)
+            ->setParameter('attended', false)
+            ->setMaxResults($limit);
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -132,6 +132,13 @@ class Applicant implements JsonSerializable, ApplicantInterface
     private $survey = false;
 
     /**
+     * @ORM\Column(name="reminder", type="boolean")
+     *
+     * @var bool
+     */
+    private $reminder = false;
+
+    /**
      * @ORM\Column(name="attended", type="boolean")
      *
      * @var bool
@@ -186,6 +193,16 @@ class Applicant implements JsonSerializable, ApplicantInterface
     public function getSurvey(): bool
     {
         return (bool) $this->survey;
+    }
+
+    public function setReminder(bool $reminder): void
+    {
+        $this->reminder = $reminder;
+    }
+
+    public function getReminder(): bool
+    {
+        return (bool) $this->reminder;
     }
 
     public function setAttended(bool $attended): void

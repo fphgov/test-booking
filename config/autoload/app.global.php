@@ -41,6 +41,14 @@ return [
                 'subject'  => getenv('APP_SURVEY_MAIL_SUBJECT'),
                 'replayTo' => getenv('APP_SURVEY_MAIL_REPLAYTO'),
             ],
+        ],
+        'reminder' => [
+            'disable'  => getenv('APP_REMINDER_DISABLE'),
+            'template' => getenv('APP_REMINDER_TEMPLATE'),
+            'mail'     => [
+                'testTo'   => getenv('APP_REMINDER_MAIL_TESTTO'),
+                'subject'  => getenv('APP_REMINDER_MAIL_SUBJECT'),
+            ],
         ]
     ],
 ];

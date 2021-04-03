@@ -18,4 +18,7 @@ interface ApplicantRepositoryInterface extends ObjectRepository
 
     /** @return ApplicantInterface[] */
     public function getApplicantsByDate(DateTime $date, int $limit = 10);
+
+    /** @return Applicant[] */
+    public function getApplicantsToReminder(DateTime $date, int $limit = 10);
 }
