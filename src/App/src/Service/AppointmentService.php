@@ -47,7 +47,14 @@ final class AppointmentService implements AppointmentServiceInterface
 
         foreach ($appointments as $appointment) {
             $boundaryDate = new DateTime();
-            $boundaryDate->add(new DateInterval('P1D'));
+
+            if (
+                isset($this->config['app']['appointment']['expired_time_day_is_plus']) &&
+                (int)$this->config['app']['appointment']['expired_time_day_is_plus'] === 1
+            ) {
+                $boundaryDate->add(new DateInterval('P1D'));
+            }
+
             $boundaryDate = $boundaryDate->setTime(
                 (int) $this->config['app']['appointment']['expired_time_hour'],
                 (int) $this->config['app']['appointment']['expired_time_min'],

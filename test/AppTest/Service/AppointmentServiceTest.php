@@ -12,6 +12,7 @@ use App\Repository\AppointmentRepository;
 use App\Repository\PlaceRepository;
 use AppTest\AbstractServiceTest;
 use DateTime;
+use DateInterval;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use DoctrineFixture\ApplicantDataLoader;
 use DoctrineFixture\AppointmentDataLoader;
@@ -106,5 +107,39 @@ class AppointmentServiceTest extends AbstractServiceTest
         $newAppointmentCount = count($appointments);
 
         $this->assertEquals(54 * 2, $newAppointmentCount - $originalAppointmentCount);
+    }
+
+    public function testClearExpiredAppointmentItsTime()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-14 16:00:00.000000');
+
+        $this->assertEquals(true, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
+    }
+
+    public function testClearExpiredAppointmentItsTimeEquals()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-14 08:00:00.000000');
+
+        $this->assertEquals(true, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
+    }
+
+    public function testClearExpiredAppointmentNotYetTime()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-10 12:00:00.000000');
+        $boundaryDate = $boundaryDate->setTime(16, 0);
+
+        $this->assertEquals(false, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
     }
 }

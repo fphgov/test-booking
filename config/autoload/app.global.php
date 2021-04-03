@@ -14,8 +14,9 @@ return [
         'company_name_part_2' => getenv('APP_COMPANY_NAME_PART_2'),
         'company_full_info'   => getenv('APP_COMPANY_FULL_INFO'),
         'appointment'         => [
-            'expired_time_hour' => getenv('APP_APPOINTMENT_EXPIRED_TIME_HOUR'),
-            'expired_time_min'  => getenv('APP_APPOINTMENT_EXPIRED_TIME_MIN'),
+            'expired_time_day_is_plus' => getenv('APP_APPOINTMENT_EXPIRED_TIME_DAY_IS_PLUS'),
+            'expired_time_hour'        => getenv('APP_APPOINTMENT_EXPIRED_TIME_HOUR'),
+            'expired_time_min'         => getenv('APP_APPOINTMENT_EXPIRED_TIME_MIN'),
         ],
         'notification'        => [
             'frequency' => (int)getenv('APP_NOTIFICATION_FREQUENCY'),
