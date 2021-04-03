@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
+use App\Model\ApplicantCheckModel;
 use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouteResult;
@@ -33,8 +34,10 @@ final class CheckGetHandler implements RequestHandlerInterface
             'humanId' => $humanId,
         ]);
 
+        $applicantCheckModel = new ApplicantCheckModel();
+
         return new JsonResponse([
-            'data' => $applicant,
+            'data' => $applicantCheckModel->parseModel($applicant),
         ]);
     }
 }

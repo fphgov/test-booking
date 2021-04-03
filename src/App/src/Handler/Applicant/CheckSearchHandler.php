@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
+use App\Model\ApplicantCheckModel;
 use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouteResult;
@@ -31,8 +32,11 @@ final class CheckSearchHandler implements RequestHandlerInterface
 
         $applicants = $applicantRepository->quickSearch($search);
 
+        $applicantCheckModel = new ApplicantCheckModel();
+        $applicantCheckModel->parseEntities($applicants);
+
         return new JsonResponse([
-            'data' => $applicants,
+            'data' => $applicantCheckModel->getModels(),
         ]);
     }
 }
