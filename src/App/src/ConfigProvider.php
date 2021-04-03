@@ -37,6 +37,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\Setting\GetHandler::class             => Handler\Setting\GetHandlerFactory::class,
+                Handler\Information\GetHandler::class         => Handler\Information\GetHandlerFactory::class,
                 Handler\Dashboard\GetHandler::class           => Handler\Dashboard\GetHandlerFactory::class,
                 Handler\Dashboard\ChangeHandler::class        => Handler\Dashboard\ChangeHandlerFactory::class,
                 Handler\Applicant\AddHandler::class           => Handler\Applicant\AddHandlerFactory::class,

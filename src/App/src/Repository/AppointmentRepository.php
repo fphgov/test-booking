@@ -109,4 +109,18 @@ final class AppointmentRepository extends EntityRepository implements Appointmen
 
         return $qb->getQuery()->getResult();
     }
+
+    /** @return array */
+    public function getAppointmentsForInformation()
+    {
+        $qb = $this->createQueryBuilder("app");
+        $qb
+            ->select("DATE_FORMAT(app.date, '%Y-%m-%d') as date, HOUR(app.date) as hour, SUM(CASE WHEN a.attended IS NOT NULL THEN TRUE ELSE FALSE END) AS allApplicant, SUM(CASE WHEN a.attended IS NOT NULL THEN a.attended ELSE FALSE END) AS attended, p.name AS pId")
+            ->leftJoin(Applicant::class, 'a', Join::WITH, 'a.appointment = app.id')
+            ->innerJoin(Place::class, 'p', Join::WITH, 'app.place = p.id')
+            ->groupBy('date', 'hour', 'pId')
+            ->orderBy('app.date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
 }
