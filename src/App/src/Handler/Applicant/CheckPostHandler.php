@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
+use App\Model\ApplicantCheckModel;
 use App\Service\ApplicantServiceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -50,13 +51,15 @@ final class CheckPostHandler implements RequestHandlerInterface
         }
 
         if (! empty($body['attended'])) {
-            $applicant->setAttended($body['attended'] === "true" || $body['attended'] === true);
+            $applicant->setAttended(! ($body['attended'] === "true" || $body['attended'] === true));
         }
 
         $this->em->flush();
 
+        $applicantCheckModel = new ApplicantCheckModel();
+
         return new JsonResponse([
-            'data' => $applicant,
+            'data' => $applicantCheckModel->parseModel($applicant),
         ]);
     }
 }
