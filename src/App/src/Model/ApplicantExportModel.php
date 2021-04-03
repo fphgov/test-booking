@@ -9,6 +9,8 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+use function substr;
+
 final class ApplicantExportModel implements ExportModelInterface
 {
     public const HEADER = [
@@ -41,7 +43,7 @@ final class ApplicantExportModel implements ExportModelInterface
 
         $data = [];
         foreach ($applicantList as $app) {
-            $sep = $app->getAppointment()->getDate()->format('Y-m-d') . ' ' . $app->getAppointment()->getPlace()->getName();
+            $sep = substr($app->getAppointment()->getDate()->format('Y-m-d') . ' ' . $app->getAppointment()->getPlace()->getName(), 0, 31);
 
             if (! isset($data[$sep])) {
                 $data[$sep][] = self::HEADER;
