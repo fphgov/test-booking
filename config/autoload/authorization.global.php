@@ -9,7 +9,7 @@ return [
             'voluntary' => ['guest'],
             'cs'        => ['voluntary'],
             'admin'     => ['voluntary', 'cs'],
-            'developer' => ['admin'],
+            'developer' => ['voluntary', 'cs', 'admin'],
         ],
         'resources' => [
             'app.api.ping',
