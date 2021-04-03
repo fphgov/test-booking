@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
+use App\Entity\Applicant;
 use App\Model\ApplicantCheckModel;
 use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -36,8 +37,14 @@ final class CheckGetHandler implements RequestHandlerInterface
 
         $applicantCheckModel = new ApplicantCheckModel();
 
+        $applicantData = [];
+
+        if ($applicant instanceof Applicant) {
+            $applicantData = $applicantCheckModel->parseModel($applicant);
+        }
+
         return new JsonResponse([
-            'data' => $applicantCheckModel->parseModel($applicant),
+            'data' => $applicantData,
         ]);
     }
 }

@@ -58,8 +58,14 @@ final class CheckPostHandler implements RequestHandlerInterface
 
         $applicantCheckModel = new ApplicantCheckModel();
 
+        $applicantData = [];
+
+        if ($applicant instanceof Applicant) {
+            $applicantData = $applicantCheckModel->parseModel($applicant);
+        }
+
         return new JsonResponse([
-            'data' => $applicantCheckModel->parseModel($applicant),
+            'data' => $applicantData,
         ]);
     }
 }
