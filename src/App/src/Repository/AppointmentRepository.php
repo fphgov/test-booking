@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Applicant;
 use App\Entity\Appointment;
 use App\Entity\Reservation;
 use DateTime;
@@ -94,5 +95,18 @@ final class AppointmentRepository extends EntityRepository implements Appointmen
             ->setParameter('phase', $phase);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /** @return array */
+    public function getAppointmentsForDashboard()
+    {
+        $qb = $this->createQueryBuilder("app");
+        $qb
+            ->select("DATE_FORMAT(app.date, '%Y-%m-%d') as date, HOUR(app.date) as hour, SUM(CASE WHEN a.attended IS NOT NULL THEN TRUE ELSE FALSE END) AS allApplicant, SUM(CASE WHEN a.attended IS NOT NULL THEN a.attended ELSE FALSE END) AS attended")
+            ->leftJoin(Applicant::class, 'a', Join::WITH, 'a.appointment = app.id')
+            ->groupBy('date', 'hour')
+            ->orderBy('app.date', 'ASC');
+
+        return $qb->getQuery()->getResult();
     }
 }

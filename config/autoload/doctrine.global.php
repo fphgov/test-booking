@@ -18,13 +18,14 @@ return [
         'configuration' => [
             'orm_default' => [
                 'string_functions' => [
+                    'HOUR'        => Mysql\Hour::class,
                     'DAY'         => Mysql\Day::class,
                     'MONTH'       => Mysql\Month::class,
-                    'YEAR'        => \DoctrineExtensions\Query\Mysql\Year::class,
+                    'YEAR'        => Mysql\Year::class,
                 ],
                 'datetime_functions' => [
-                    'date'        => \DoctrineExtensions\Query\Mysql\Date::class,
-                    'date_format' => \DoctrineExtensions\Query\Mysql\DateFormat::class,
+                    'date'        => Mysql\Date::class,
+                    'date_format' => Mysql\DateFormat::class,
                 ]
             ]
         ],
