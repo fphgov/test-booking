@@ -6,11 +6,6 @@ namespace App\Generator;
 
 use DateTime;
 
-use function array_unique;
-use function array_values;
-use function count;
-use function max;
-
 final class AppointmentGeneratorOptions implements AppointmentGeneratorOptionsInterface
 {
     private array $intervalMatrix = self::DEFAULT_INTERVAL_MATRIX;
@@ -99,20 +94,5 @@ final class AppointmentGeneratorOptions implements AppointmentGeneratorOptionsIn
     public function getNormalLunchTime(): bool
     {
         return $this->normalLunchTime;
-    }
-
-    public function hasDiffInterval(): bool
-    {
-        return count(array_unique($this->getIntervalValues())) > 1;
-    }
-
-    public function getMaxIntervalValues(): int
-    {
-        return max($this->getIntervalValues());
-    }
-
-    private function getIntervalValues(): array
-    {
-        return array_values($this->intervalMatrix);
     }
 }

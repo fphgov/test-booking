@@ -43,8 +43,4 @@ interface AppointmentGeneratorOptionsInterface
     public function setNormalLunchTime(bool $normalLunchTime): void;
 
     public function getNormalLunchTime(): bool;
-
-    public function hasDiffInterval(): bool;
-
-    public function getMaxIntervalValues(): int;
 }
