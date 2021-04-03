@@ -29,7 +29,7 @@ final class SearchHandler implements RequestHandlerInterface
         $routeResult = $request->getAttribute(RouteResult::class);
         $search      = $routeResult->getMatchedParams()['search'];
 
-        $applicants = $applicantRepository->quickSearch($search);
+        $applicants = $applicantRepository->quickAdvancedSearch($search);
 
         return new JsonResponse([
             'data' => $applicants,

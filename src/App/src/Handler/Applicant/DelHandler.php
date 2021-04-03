@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
+use App\Exception\ApplicantAlreadyParticipatedException;
 use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 
 final class DelHandler implements RequestHandlerInterface
 {
@@ -39,12 +41,18 @@ final class DelHandler implements RequestHandlerInterface
             ], 404);
         }
 
-        $deleted = $this->applicantService->removeApplication($applicant);
-
-        if (! $deleted) {
+        try {
+            $this->applicantService->removeApplication($applicant);
+        } catch (ApplicantAlreadyParticipatedException $th) {
             return new JsonResponse([
                 'errors' => [
-                    'applicant' => ['An error occurred while deleting the applicant.'],
+                    'applicant' => ['A jelentkezéssel már részt vettek az eseményen, ezért törlésre már nincs lehetőség.'],
+                ],
+            ], 500);
+        } catch (Throwable $th) {
+            return new JsonResponse([
+                'errors' => [
+                    'applicant' => ['Hiba történt a jelentkezés törlése közben.'],
                 ],
             ], 500);
         }

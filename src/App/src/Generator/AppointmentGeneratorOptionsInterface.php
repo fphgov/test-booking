@@ -18,21 +18,19 @@ interface AppointmentGeneratorOptionsInterface
         50 => 1,
     ];
 
-    public function setStartTime(int $startTime): void;
+    public function parseFromArray(array $options): void;
 
     public function getStartTime(): int;
 
-    public function setEndTime(int $endTime): void;
-
     public function getEndTime(): int;
 
-    public function setStartDate(DateTime $startDate): void;
+    public function setStartDateTime(DateTime $startDateTime): void;
 
-    public function getStartDate(): DateTime;
+    public function getStartDateTime(): DateTime;
 
-    public function setEndDate(DateTime $endDate): void;
+    public function setEndDateTime(DateTime $endDateTime): void;
 
-    public function getEndDate(): DateTime;
+    public function getEndDateTime(): DateTime;
 
     public function setInterval(int $interval): void;
 

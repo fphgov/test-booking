@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
-use App\Entity\Applicant;
 use App\Model\ApplicantCheckModel;
 use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
@@ -13,7 +12,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-final class CheckGetHandler implements RequestHandlerInterface
+final class CheckSearchHandler implements RequestHandlerInterface
 {
     /** @var ApplicantServiceInterface */
     private $applicantService;
@@ -29,22 +28,15 @@ final class CheckGetHandler implements RequestHandlerInterface
         $applicantRepository = $this->applicantService->getRepository();
 
         $routeResult = $request->getAttribute(RouteResult::class);
-        $humanId     = $routeResult->getMatchedParams()['humanId'];
+        $search      = $routeResult->getMatchedParams()['search'];
 
-        $applicant = $applicantRepository->findOneBy([
-            'humanId' => $humanId,
-        ]);
+        $applicants = $applicantRepository->quickSearch($search);
 
         $applicantCheckModel = new ApplicantCheckModel();
-
-        $applicantData = [];
-
-        if ($applicant instanceof Applicant) {
-            $applicantData = $applicantCheckModel->parseModel($applicant);
-        }
+        $applicantCheckModel->parseEntities($applicants);
 
         return new JsonResponse([
-            'data' => $applicantData,
+            'data' => $applicantCheckModel->getModels(),
         ]);
     }
 }

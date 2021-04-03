@@ -42,16 +42,18 @@ final class GetHandler implements RequestHandlerInterface
         $applicantRepository   = $this->applicantService->getRepository();
         $appointmentRepository = $this->appointmentService->getRepository();
 
-        $reserved  = $applicantRepository->getCount();
-        $available = $appointmentRepository->getAvailableAppointments((int) getenv('APP_PHASE'));
-        $banned    = $appointmentRepository->getBannedAppointments((int) getenv('APP_PHASE'));
+        $reserved     = $applicantRepository->getCount();
+        $available    = $appointmentRepository->getAvailableAppointments((int) getenv('APP_PHASE'));
+        $banned       = $appointmentRepository->getBannedAppointments((int) getenv('APP_PHASE'));
+        $appointments = $appointmentRepository->getAppointmentsForDashboard();
 
         return new JsonResponse([
             'settings' => $setting,
             'infos'    => [
-                'reserved'  => $reserved,
-                'available' => $available,
-                'banned'    => $banned,
+                'reserved'     => $reserved,
+                'available'    => $available,
+                'banned'       => $banned,
+                'appointments' => $appointments,
             ],
         ]);
     }

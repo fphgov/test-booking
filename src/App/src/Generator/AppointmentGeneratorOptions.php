@@ -12,27 +12,19 @@ final class AppointmentGeneratorOptions implements AppointmentGeneratorOptionsIn
     private int $interval         = self::DEFAULT_INTERVAL;
 
     private bool $normalLunchTime;
-    private DateTime $startDate;
-    private DateTime $endDate;
+    private DateTime $startDateTime;
+    private DateTime $endDateTime;
     private int $startTime;
     private int $endTime;
 
     public function parseFromArray(array $options): void
     {
-        if (isset($options['startTime'])) {
-            $this->setStartTime((int) $options['startTime']);
+        if (isset($options['startDateTime'])) {
+            $this->setStartDateTime(new DateTime($options['startDateTime']));
         }
 
-        if (isset($options['endTime'])) {
-            $this->setEndTime((int) $options['endTime']);
-        }
-
-        if (isset($options['startDate'])) {
-            $this->setStartDate(new DateTime($options['startDate']));
-        }
-
-        if (isset($options['endDate'])) {
-            $this->setEndDate(new DateTime($options['endDate']));
+        if (isset($options['endDateTime'])) {
+            $this->setEndDateTime(new DateTime($options['endDateTime']));
         }
 
         if (isset($options['interval'])) {
@@ -40,19 +32,9 @@ final class AppointmentGeneratorOptions implements AppointmentGeneratorOptionsIn
         }
     }
 
-    public function setStartTime(int $startTime): void
-    {
-        $this->startTime = $startTime;
-    }
-
     public function getStartTime(): int
     {
         return $this->startTime;
-    }
-
-    public function setEndTime(int $endTime): void
-    {
-        $this->endTime = $endTime;
     }
 
     public function getEndTime(): int
@@ -60,24 +42,28 @@ final class AppointmentGeneratorOptions implements AppointmentGeneratorOptionsIn
         return $this->endTime;
     }
 
-    public function setStartDate(DateTime $startDate): void
+    public function setStartDateTime(DateTime $startDateTime): void
     {
-        $this->startDate = $startDate->setTime($this->startTime, 0);
+        $this->startDateTime = $startDateTime;
+
+        $this->startTime = (int) $this->startDateTime->format('H');
     }
 
-    public function getStartDate(): DateTime
+    public function getStartDateTime(): DateTime
     {
-        return $this->startDate;
+        return $this->startDateTime;
     }
 
-    public function setEndDate(DateTime $endDate): void
+    public function setEndDateTime(DateTime $endDateTime): void
     {
-        $this->endDate = $endDate->setTime($this->endTime, 0);
+        $this->endDateTime = $endDateTime;
+
+        $this->endTime = (int) $this->endDateTime->format('H');
     }
 
-    public function getEndDate(): DateTime
+    public function getEndDateTime(): DateTime
     {
-        return $this->endDate;
+        return $this->endDateTime;
     }
 
     public function setInterval(int $interval): void

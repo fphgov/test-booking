@@ -13,12 +13,9 @@ use Laminas\Mime\Part;
 use Mezzio\Template\TemplateRendererInterface;
 use Throwable;
 
-use function base_convert;
-use function bin2hex;
 use function error_log;
 use function is_array;
-use function microtime;
-use function openssl_random_pseudo_bytes;
+use function uniqid;
 
 class MailAdapter
 {
@@ -128,8 +125,7 @@ class MailAdapter
 
     private function setMessageId(): void
     {
-        $key  = base_convert(microtime(), 10, 36) . base_convert(bin2hex(openssl_random_pseudo_bytes(8)), 16, 36);
-        $key .= '@' . $this->config['headers']['message_id_domain'];
+        $key = uniqid() . '@' . $this->config['headers']['message_id_domain'];
 
         $messageId = Header\MessageId::fromString('message-id: ' . $key);
 

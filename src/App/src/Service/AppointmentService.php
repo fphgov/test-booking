@@ -41,17 +41,38 @@ final class AppointmentService implements AppointmentServiceInterface
         return $this->appointmentRepository;
     }
 
+    private function getClearDateTime(): DateTime
+    {
+        $boundaryDate = new DateTime();
+
+        if (
+            ! isset($this->config['app']['appointment']['expired_time_enable']) ||
+            (int) $this->config['app']['appointment']['expired_time_enable'] === 0
+        ) {
+            return $boundaryDate;
+        }
+
+        if (
+            isset($this->config['app']['appointment']['expired_time_day_is_plus']) &&
+            (int) $this->config['app']['appointment']['expired_time_day_is_plus'] === 1
+        ) {
+            $boundaryDate->add(new DateInterval('P1D'));
+        }
+
+        $boundaryDate = $boundaryDate->setTime(
+            (int) $this->config['app']['appointment']['expired_time_hour'],
+            (int) $this->config['app']['appointment']['expired_time_min'],
+        );
+
+        return $boundaryDate;
+    }
+
     public function clearExpiredData(): void
     {
         $appointments = $this->appointmentRepository->findAll();
 
         foreach ($appointments as $appointment) {
-            $boundaryDate = new DateTime();
-            $boundaryDate->add(new DateInterval('P1D'));
-            $boundaryDate = $boundaryDate->setTime(
-                (int) $this->config['app']['appointment']['expired_time_hour'],
-                (int) $this->config['app']['appointment']['expired_time_min'],
-            );
+            $boundaryDate = $this->getClearDateTime();
 
             if ($appointment->getAvailable() && $appointment->getDate() <= $boundaryDate) {
                 $appointment->setBanned(true);

@@ -13,5 +13,5 @@ interface ApplicantServiceInterface
 
     public function addApplicant(array $filteredParams, string $sessionId): ApplicantInterface;
 
-    public function removeApplication(ApplicantInterface $applicant): bool;
+    public function removeApplication(ApplicantInterface $applicant): void;
 }

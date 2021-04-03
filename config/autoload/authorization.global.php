@@ -9,7 +9,7 @@ return [
             'voluntary' => ['guest'],
             'cs'        => ['voluntary'],
             'admin'     => ['voluntary', 'cs'],
-            'developer' => ['admin'],
+            'developer' => ['voluntary', 'cs', 'admin'],
         ],
         'resources' => [
             'app.api.ping',
@@ -24,6 +24,7 @@ return [
             'admin.api.cache.clear',
             'admin.api.dashboard.get',
             'admin.api.dashboard.set',
+            'admin.api.informations.get',
             'admin.api.applicant.search',
             'admin.api.applicant.get',
             'admin.api.applicant.post',
@@ -47,10 +48,10 @@ return [
                 'admin.api.login',
             ],
             'voluntary' => [
-                'admin.api.dashboard.get',
                 'admin.api.check.search',
                 'admin.api.check.get',
                 'admin.api.check.post',
+                'admin.api.informations.get',
             ],
             'cs' => [
                 'admin.api.applicant.search',
@@ -59,6 +60,7 @@ return [
                 'admin.api.applicant.del',
             ],
             'admin' => [
+                'admin.api.dashboard.get',
                 'admin.api.dashboard.set',
                 'admin.api.applicant.export',
             ],

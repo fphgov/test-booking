@@ -33,6 +33,10 @@ interface ApplicantInterface extends EntityInterface
 
     public function getSurvey(): bool;
 
+    public function setAttended(bool $attended): void;
+
+    public function getAttended(): bool;
+
     public function setFirstname(string $firstname): void;
 
     public function getFirstname(): string;

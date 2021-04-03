@@ -142,7 +142,7 @@ final class AddHandler implements RequestHandlerInterface
             'data' => [
                 'humanId' => $applicant->getHumanId(),
                 'place'   => $applicant->getAppointment()->getPlace()->getDescription(),
-                'date'    => $applicant->getAppointment()->getDate()->format('Y-m-d h:i'),
+                'date'    => $applicant->getAppointment()->getDate()->format('Y-m-d H.i'),
             ],
         ]);
     }

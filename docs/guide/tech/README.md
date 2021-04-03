@@ -81,9 +81,9 @@ Our software uses environment variables located in `.env` file. You can find a s
 |JWT_NBF|0|-|increase time between JWT token issuance and expiry|
 |JWT_EXP|1|-|JWT token expiration|
 |JWT_SECRET|vFG8fqDbNEffk3qr|-|JWT token encryption key (unique, randomly generated)|
-|DOCKER_WITH_XDEBUG|false|true, false|xdebug for development, if true, it is built in the docker image|
-|DOCKER_PHP_IDE_CONFIG|serverName=webapp|-|xdebug server name|
-|DOCKER_XDEBUG_CONFIG|'remote_enable=1 remote_host=172.2.0.113 remote_port=9001'|-|xdebug server configuration|
+|XDEBUG_MODE|off|off, develop, coverage, debug, gcstats, profile, trace|xdebug for development, more info: https://xdebug.org/docs/all_settings#mode|
+|XDEBUG_HOST|host.docker.internal|-|xdebug host|
+|XDEBUG_PORT|9001|-|xdebug listen port|
 |SMTP_HOST|127.0.0.1|-|Mail server host address|
 |SMTP_NAME|localhost|-|Mail server domain|
 |SMTP_PORT|25|-|Mail server port|
@@ -110,8 +110,9 @@ Our software uses environment variables located in `.env` file. You can find a s
 |APP_NOTIFICATION_FREQUENCY|20|-|Emails are getting sent with a delay, frequency of email / minute can be set here|
 |APP_NOTIFICATION_MAIL_TESTTO|"test@institute.gov"|-|Email address for testing purpose|
 |APP_NOTIFICATION_MAIL_REPLAYTO|support@institute.gov|-|'replay to' address|
-|APP_APPOINTMENT_EXPIRED_TIME_HOUR|7|UTC+1 (0-24)|Same day expiration date (hours)|
-|APP_APPOINTMENT_EXPIRED_TIME_MIN|0|UTC+1 (0-59)|Same day expiration date (minutes)|
+|APP_APPOINTMENT_EXPIRED_TIME_DAY_IS_PLUS|1|0, 1|The bookable time is the next day|
+|APP_APPOINTMENT_EXPIRED_TIME_HOUR|7|UTC+1 (0-24)|Expiration date (hours)|
+|APP_APPOINTMENT_EXPIRED_TIME_MIN|0|UTC+1 (0-59)|Expiration date (minutes)|
 |APP_ICS_NAME|"Free Covid test"|-|Name of event in calendar file attached in email|
 |APP_ICS_DESCRIPTION|"Free Covid test details"|-|Description of event in calendar file attached in email|
 |APP_SURVEY_DISABLE|1|0, 1|Survey email on/off|

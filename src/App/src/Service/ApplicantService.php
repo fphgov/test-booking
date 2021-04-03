@@ -8,6 +8,8 @@ use App\Entity\Applicant;
 use App\Entity\ApplicantInterface;
 use App\Entity\Appointment;
 use App\Entity\Reservation;
+use App\Exception\ApplicantAlreadyParticipatedException;
+use App\Exception\ApplicantFailedDeleteException;
 use App\Repository\ApplicantRepositoryInterface;
 use App\Repository\AppointmentRepositoryInterface;
 use App\Repository\ReservationRepositoryInterface;
@@ -92,14 +94,14 @@ final class ApplicantService implements ApplicantServiceInterface
         return $applicant;
     }
 
-    public function removeApplication(ApplicantInterface $applicant): bool
+    public function removeApplication(ApplicantInterface $applicant): void
     {
         $appointment          = $applicant->getAppointment();
         $date                 = $appointment->getDate();
         $availableAppointment = $date->format('Y-m-d') > (new DateTime('now'))->format('Y-m-d');
 
-        if (! $availableAppointment) {
-            $appointment->setBanned(true);
+        if ($applicant->getAttended()) {
+            throw new ApplicantAlreadyParticipatedException();
         }
 
         try {
@@ -107,15 +109,13 @@ final class ApplicantService implements ApplicantServiceInterface
 
             $this->em->remove($applicant);
             $this->em->flush();
-
-            return true;
         } catch (Exception $e) {
             $this->audit->err('Applicant could not be deleted', [
                 'extra' => $applicant->getHumanId() . ' (' . $appointment->getId() . ')',
             ]);
-        }
 
-        return false;
+            throw new ApplicantFailedDeleteException();
+        }
     }
 
     public function getRepository(): ApplicantRepositoryInterface

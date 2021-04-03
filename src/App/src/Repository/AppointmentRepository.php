@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Applicant;
 use App\Entity\Appointment;
+use App\Entity\Place;
 use App\Entity\Reservation;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
@@ -94,5 +96,32 @@ final class AppointmentRepository extends EntityRepository implements Appointmen
             ->setParameter('phase', $phase);
 
         return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /** @return array */
+    public function getAppointmentsForDashboard()
+    {
+        $qb = $this->createQueryBuilder("app");
+        $qb
+            ->select("DATE_FORMAT(app.date, '%Y-%m-%d') as date, HOUR(app.date) as hour, SUM(CASE WHEN a.attended IS NOT NULL THEN TRUE ELSE FALSE END) AS allApplicant, SUM(CASE WHEN a.attended IS NOT NULL THEN a.attended ELSE FALSE END) AS attended")
+            ->leftJoin(Applicant::class, 'a', Join::WITH, 'a.appointment = app.id')
+            ->groupBy('date', 'hour')
+            ->orderBy('app.date', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    /** @return array */
+    public function getAppointmentsForInformation()
+    {
+        $qb = $this->createQueryBuilder("app");
+        $qb
+            ->select("DATE_FORMAT(app.date, '%Y-%m-%d') as date, HOUR(app.date) as hour, SUM(CASE WHEN a.attended IS NOT NULL THEN TRUE ELSE FALSE END) AS allApplicant, SUM(CASE WHEN a.attended IS NOT NULL THEN a.attended ELSE FALSE END) AS attended, p.name AS pId")
+            ->leftJoin(Applicant::class, 'a', Join::WITH, 'a.appointment = app.id')
+            ->innerJoin(Place::class, 'p', Join::WITH, 'app.place = p.id')
+            ->groupBy('date', 'hour', 'pId')
+            ->orderBy('app.date', 'ASC');
+
+        return $qb->getQuery()->getResult();
     }
 }

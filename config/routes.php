@@ -41,9 +41,16 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
     ], 'app.api.appointment.reservation');
 
     // Admin
-    $app->post('/admin/api/login', [
-        Jwt\Handler\TokenHandler::class,
-    ], 'admin.api.login');
+    if (getenv('NODE_ENV') === 'development') {
+        $app->post('/admin/api/login', [
+            Jwt\Handler\TokenHandler::class,
+        ], 'admin.api.login');
+    } else {
+        $app->post('/admin/api/login', [
+            \Middlewares\Recaptcha::class,
+            Jwt\Handler\TokenHandler::class,
+        ], 'admin.api.login');
+    }
 
     if (getenv('NODE_ENV') === 'development') {
         $app->get('/admin/api/cache/clear', [
@@ -71,6 +78,13 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         \Mezzio\Authorization\AuthorizationMiddleware::class,
         App\Handler\Dashboard\ChangeHandler::class
     ], 'admin.api.dashboard.set');
+
+    $app->get('/admin/api/informations', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        \Mezzio\Authorization\AuthorizationMiddleware::class,
+        App\Handler\Information\GetHandler::class
+    ], 'admin.api.informations.get');
 
     $app->get('/admin/api/applicant/s/{search}', [
         Jwt\Handler\JwtAuthMiddleware::class,
@@ -111,7 +125,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
         \Mezzio\Authorization\AuthorizationMiddleware::class,
-        App\Handler\Applicant\SearchHandler::class
+        App\Handler\Applicant\CheckSearchHandler::class
     ], 'admin.api.check.search');
 
     $app->get('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [
@@ -128,9 +142,9 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         App\Handler\Applicant\CheckPostHandler::class
     ], 'admin.api.check.post');
 
-    // $app->post('/admin/api/generate/appointment', [
-    //     Jwt\Handler\JwtAuthMiddleware::class,
-    //     App\Middleware\UserMiddleware::class,
-    //     App\Handler\Appointment\GenerateHandler::class
-    // ], 'admin.api.generate.appointment');
+    $app->post('/admin/api/generate/appointment', [
+        Jwt\Handler\JwtAuthMiddleware::class,
+        App\Middleware\UserMiddleware::class,
+        App\Handler\Appointment\GenerateHandler::class
+    ], 'admin.api.generate.appointment');
 };

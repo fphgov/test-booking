@@ -55,3 +55,4 @@ supervisord.pid
 .scannerwork
 .phpunit.result.cache
 .actrc
+.htpasswd

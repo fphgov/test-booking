@@ -67,10 +67,8 @@ class AppointmentServiceTest extends AbstractServiceTest
         $this->assertCount(2, $places);
 
         $appGenOptions = new AppointmentGeneratorOptions();
-        $appGenOptions->setStartTime(8);
-        $appGenOptions->setEndTime(18);
-        $appGenOptions->setStartDate(new DateTime("2021-02-08"));
-        $appGenOptions->setEndDate(new DateTime("2021-02-08"));
+        $appGenOptions->setStartDateTime(new DateTime("2021-02-08 08:00"));
+        $appGenOptions->setEndDateTime(new DateTime("2021-02-08 18:00"));
         $appGenOptions->setNormalLunchTime(true);
         $appGenOptions->setIntervalMatrix([
             0  => 1,
@@ -108,5 +106,39 @@ class AppointmentServiceTest extends AbstractServiceTest
         $newAppointmentCount = count($appointments);
 
         $this->assertEquals(54 * 2, $newAppointmentCount - $originalAppointmentCount);
+    }
+
+    public function testClearExpiredAppointmentItsTime()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-14 16:00:00.000000');
+
+        $this->assertEquals(true, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
+    }
+
+    public function testClearExpiredAppointmentItsTimeEquals()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-14 08:00:00.000000');
+
+        $this->assertEquals(true, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
+    }
+
+    public function testClearExpiredAppointmentNotYetTime()
+    {
+        $appointment = $this->getMockBuilder(Appointment::class)->getMock();
+        $appointment->method('getDate')->willReturn(new DateTime('2020-12-14 08:00:00.000000'));
+        $appointment->method('getAvailable')->willReturn(true);
+
+        $boundaryDate = new DateTime('2020-12-10 12:00:00.000000');
+        $boundaryDate = $boundaryDate->setTime(16, 0);
+
+        $this->assertEquals(false, $appointment->getAvailable() && $appointment->getDate() <= $boundaryDate);
     }
 }

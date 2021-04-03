@@ -80,9 +80,9 @@ A szoftver a beállításához környezeti változókat használ. Ezt a `.env` f
 |JWT_NBF|0|-|JWT token kiállítása és használhatósága közötti idő nővelése|
 |JWT_EXP|1|-|JWT token lejárati ideje|
 |JWT_SECRET|vFG8fqDbNEffk3qr|-|JWT tokenhez tartozó titkosító kulcs (egyedi, véletlenszerűen generált legyen)|
-|DOCKER_WITH_XDEBUG|false|true, false|Fejlesztés használható xdebug, ha true, úgy buildelésnél belekerül a docker image-be|
-|DOCKER_PHP_IDE_CONFIG|serverName=webapp|-|Az xdebug szerver neve|
-|DOCKER_XDEBUG_CONFIG|'remote_enable=1 remote_host=172.2.0.113 remote_port=9001'|-|Az xdebug szerver konfigurációja|
+|XDEBUG_MODE|off|off, develop, coverage, debug, gcstats, profile, trace|Fejlesztés használható xdebug, bővebben: https://xdebug.org/docs/all_settings#mode|
+|XDEBUG_HOST|host.docker.internal|-|xdebug kiszolgálója|
+|XDEBUG_PORT|9001|-|xdebug figyelési portja|
 |SMTP_HOST|127.0.0.1|-|Levélküldő szerver elérési címe|
 |SMTP_NAME|localhost|-|Levélküldő szerver elérési címe (domain)|
 |SMTP_PORT|25|-|Levélküldő szerver kommunikációs csatornájának száma|
@@ -109,8 +109,9 @@ A szoftver a beállításához környezeti változókat használ. Ezt a `.env` f
 |APP_NOTIFICATION_FREQUENCY|20|-|Az alkalmazás késleltetve küldi ki az e-maileket, ezzel meghatározható, hogy percenként hány e-mail küldése lehetséges|
 |APP_NOTIFICATION_MAIL_TESTTO|"test@onkormanyzat.hu"|-|Az e-mail küldés teszteléséhez használt e-mail cím|
 |APP_NOTIFICATION_MAIL_REPLAYTO|ugyfelszolgalat@onkormanyzat.hu|-|Válasz e-mail beállítása|
-|APP_APPOINTMENT_EXPIRED_TIME_HOUR|7|UTC+1 (0-24)|A foglalható időpont aznapi lejárata (óra)|
-|APP_APPOINTMENT_EXPIRED_TIME_MIN|0|UTC+1 (0-59)|A foglalható időpont aznapi lejárata (perc)|
+|APP_APPOINTMENT_EXPIRED_TIME_DAY_IS_PLUS|1|0, 1|A foglalható időpont a következő napon van|
+|APP_APPOINTMENT_EXPIRED_TIME_HOUR|7|UTC+1 (0-24)|A foglalható időpont lejárata (óra)|
+|APP_APPOINTMENT_EXPIRED_TIME_MIN|0|UTC+1 (0-59)|A foglalható időpont lejárata (perc)|
 |APP_ICS_NAME|"Ingyenes gyorsztesztelés"|-|Az e-mailben mellékelt kalendár fájlhoz tartozó esemény neve|
 |APP_ICS_DESCRIPTION|"Ingyenes gyorstesztelés bővebb leírása"|-|Az e-mailben mellékelt kalendár fájlhoz tartozó esemény leírása|
 |APP_SURVEY_DISABLE|1|0, 1|Felmérő e-mail küldésének be/ki kapcsolása|

@@ -37,6 +37,7 @@ class ConfigProvider
             ],
             'factories'  => [
                 Handler\Setting\GetHandler::class             => Handler\Setting\GetHandlerFactory::class,
+                Handler\Information\GetHandler::class         => Handler\Information\GetHandlerFactory::class,
                 Handler\Dashboard\GetHandler::class           => Handler\Dashboard\GetHandlerFactory::class,
                 Handler\Dashboard\ChangeHandler::class        => Handler\Dashboard\ChangeHandlerFactory::class,
                 Handler\Applicant\AddHandler::class           => Handler\Applicant\AddHandlerFactory::class,
@@ -44,6 +45,7 @@ class ConfigProvider
                 Handler\Applicant\GetAllHandler::class        => Handler\Applicant\GetAllHandlerFactory::class,
                 Handler\Applicant\PostHandler::class          => Handler\Applicant\PostHandlerFactory::class,
                 Handler\Applicant\SearchHandler::class        => Handler\Applicant\SearchHandlerFactory::class,
+                Handler\Applicant\CheckSearchHandler::class => Handler\Applicant\CheckSearchHandlerFactory::class,
                 Handler\Applicant\DelHandler::class           => Handler\Applicant\DelHandlerFactory::class,
                 Handler\Applicant\ExportHandler::class        => Handler\Applicant\ExportHandlerFactory::class,
                 Handler\Applicant\CancellationHandler::class  => Handler\Applicant\CancellationHandlerFactory::class,

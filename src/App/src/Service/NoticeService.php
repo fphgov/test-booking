@@ -12,12 +12,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Dompdf\Dompdf;
 use Laminas\Log\Logger;
 use Mail\MailAdapter;
+use Mezzio\Template\TemplateRendererInterface;
 use Pdf\Interfaces\PdfRender;
 use Spatie\IcalendarGenerator\Components\Calendar;
 use Spatie\IcalendarGenerator\Components\Event;
 use Throwable;
 
 use function preg_match;
+use function strip_tags;
 
 final class NoticeService implements NoticeServiceInterface
 {
@@ -33,6 +35,9 @@ final class NoticeService implements NoticeServiceInterface
     /** @var MailAdapter */
     private $mailAdapter;
 
+    /** @var TemplateRendererInterface */
+    private $template;
+
     /** @var Logger */
     private $audit;
 
@@ -41,13 +46,15 @@ final class NoticeService implements NoticeServiceInterface
         EntityManagerInterface $em,
         PdfRender $pdfRender,
         MailAdapter $mailAdapter,
-        Logger $audit
+        Logger $audit,
+        ?TemplateRendererInterface $template = null
     ) {
         $this->config      = $config;
         $this->em          = $em;
         $this->pdfRender   = $pdfRender;
         $this->mailAdapter = $mailAdapter;
         $this->audit       = $audit;
+        $this->template    = $template;
     }
 
     public function sendEmail(ApplicantInterface $applicant): void
@@ -80,7 +87,14 @@ final class NoticeService implements NoticeServiceInterface
 
             $pdf       = $this->getPdf($applicant, $appointment, 'pdf/created');
             $resultPdf = $this->getPdf($applicant, $appointment, 'pdf/result');
-            $ics       = $this->getCalendar($applicant);
+
+            $description = $this->config['app']['ics']['description'];
+
+            if ($this->template !== null) {
+                $description = strip_tags($this->template->render('email/created', $tplData));
+            }
+
+            $ics = $this->getCalendar($applicant, $description);
 
             $this->mailAdapter
                 ->setTemplate('email/created', $tplData)
@@ -146,7 +160,7 @@ final class NoticeService implements NoticeServiceInterface
         return $output;
     }
 
-    private function getCalendar(ApplicantInterface $applicant): string
+    private function getCalendar(ApplicantInterface $applicant, string $description): string
     {
         $appointment = $applicant->getAppointment();
 
@@ -157,7 +171,7 @@ final class NoticeService implements NoticeServiceInterface
 
         $event = Event::create()
                 ->name($this->config['app']['ics']['name'])
-                ->description($this->config['app']['ics']['description'])
+                ->description($description)
                 ->organizer($this->config['app']['email'], $this->config['app']['municipality'])
                 ->url($this->config['app']['url'])
                 ->uniqueIdentifier($applicant->getHumanId())
