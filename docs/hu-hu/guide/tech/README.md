@@ -80,9 +80,9 @@ A szoftver a beállításához környezeti változókat használ. Ezt a `.env` f
 |JWT_NBF|0|-|JWT token kiállítása és használhatósága közötti idő nővelése|
 |JWT_EXP|1|-|JWT token lejárati ideje|
 |JWT_SECRET|vFG8fqDbNEffk3qr|-|JWT tokenhez tartozó titkosító kulcs (egyedi, véletlenszerűen generált legyen)|
-|DOCKER_WITH_XDEBUG|false|true, false|Fejlesztés használható xdebug, ha true, úgy buildelésnél belekerül a docker image-be|
-|DOCKER_PHP_IDE_CONFIG|serverName=webapp|-|Az xdebug szerver neve|
-|DOCKER_XDEBUG_CONFIG|'remote_enable=1 remote_host=172.2.0.113 remote_port=9001'|-|Az xdebug szerver konfigurációja|
+|XDEBUG_MODE|off|off, develop, coverage, debug, gcstats, profile, trace|Fejlesztés használható xdebug, bővebben: https://xdebug.org/docs/all_settings#mode|
+|XDEBUG_HOST|host.docker.internal|-|xdebug kiszolgálója|
+|XDEBUG_PORT|9001|-|xdebug figyelési portja|
 |SMTP_HOST|127.0.0.1|-|Levélküldő szerver elérési címe|
 |SMTP_NAME|localhost|-|Levélküldő szerver elérési címe (domain)|
 |SMTP_PORT|25|-|Levélküldő szerver kommunikációs csatornájának száma|

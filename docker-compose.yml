@@ -11,7 +11,6 @@ services:
     volumes:
       - ./docker/data/mysql:/var/lib/mysql
       - ./docker/config/mysql/mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-      - ./migration/shemas.sql:/docker-entrypoint-initdb.d/shemas.sql
     networks:
       - default
 
@@ -22,8 +21,6 @@ services:
     container_name: test_booking_webapp
     expose:
       - 9002
-    ports:
-      - 9001:9001
     volumes:
       - .:/var/www/html
       - ./docker/config/webapp/php/ini/limitation.ini:/usr/local/etc/php/conf.d/limitation.ini

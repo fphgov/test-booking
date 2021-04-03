@@ -81,9 +81,9 @@ Our software uses environment variables located in `.env` file. You can find a s
 |JWT_NBF|0|-|increase time between JWT token issuance and expiry|
 |JWT_EXP|1|-|JWT token expiration|
 |JWT_SECRET|vFG8fqDbNEffk3qr|-|JWT token encryption key (unique, randomly generated)|
-|DOCKER_WITH_XDEBUG|false|true, false|xdebug for development, if true, it is built in the docker image|
-|DOCKER_PHP_IDE_CONFIG|serverName=webapp|-|xdebug server name|
-|DOCKER_XDEBUG_CONFIG|'remote_enable=1 remote_host=172.2.0.113 remote_port=9001'|-|xdebug server configuration|
+|XDEBUG_MODE|off|off, develop, coverage, debug, gcstats, profile, trace|xdebug for development, more info: https://xdebug.org/docs/all_settings#mode|
+|XDEBUG_HOST|host.docker.internal|-|xdebug host|
+|XDEBUG_PORT|9001|-|xdebug listen port|
 |SMTP_HOST|127.0.0.1|-|Mail server host address|
 |SMTP_NAME|localhost|-|Mail server domain|
 |SMTP_PORT|25|-|Mail server port|
