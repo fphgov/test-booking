@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Model;
 
 use App\Entity\Applicant;
-use App\Service\ApplicantServiceInterface;
 
 final class ApplicantCheckModel
 {
     private array $applicants = [];
 
-    /** @param Applicant[] **/
+    /** @param Applicant[] $models **/
     public function parseEntities(array $models): void
     {
         $this->applicants = [];

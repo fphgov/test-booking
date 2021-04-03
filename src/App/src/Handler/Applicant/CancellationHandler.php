@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler\Applicant;
 
-use App\Service\ApplicantServiceInterface;
 use App\Exception\ApplicantAlreadyParticipatedException;
+use App\Service\ApplicantServiceInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Throwable;
 
 final class CancellationHandler implements RequestHandlerInterface
 {
@@ -42,8 +43,6 @@ final class CancellationHandler implements RequestHandlerInterface
             ], 404);
         }
 
-        $deleted = $this->applicantService->removeApplication($applicant);
-
         try {
             $this->applicantService->removeApplication($applicant);
         } catch (ApplicantAlreadyParticipatedException $th) {
@@ -52,7 +51,7 @@ final class CancellationHandler implements RequestHandlerInterface
                     'applicant' => ['A jelentkezéssel már részt vettek az eseményen, ezért törlésre már nincs lehetőség.'],
                 ],
             ], 500);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return new JsonResponse([
                 'errors' => [
                     'applicant' => ['Hiba történt a jelentkezés törlése közben.'],

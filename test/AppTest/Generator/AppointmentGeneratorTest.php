@@ -294,9 +294,11 @@ class AppointmentGeneratorTest extends TestCase
 
         $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
 
-        $appointmentCountsString = array_map(function($date) { return $date->format('Y-m-d H:i:s'); }, $appoints);
-        $appointmentCounts = array_count_values($appointmentCountsString);
-        $appointCount = 10;
+        $appointmentCountsString = array_map(function ($date) {
+            return $date->format('Y-m-d H:i:s');
+        }, $appoints);
+        $appointmentCounts       = array_count_values($appointmentCountsString);
+        $appointCount            = 10;
 
         $this->assertEquals($appointmentCounts['2021-02-23 14:30:00'], 1);
         $this->assertEquals($appointmentCounts['2021-02-24 14:30:00'], 1);
@@ -329,9 +331,11 @@ class AppointmentGeneratorTest extends TestCase
 
         $appoints = (new AppointmentGenerator())->getDates($appGenOptions);
 
-        $appointmentCountsString = array_map(function($date) { return $date->format('Y-m-d H:i:s'); }, $appoints);
-        $appointmentCounts = array_count_values($appointmentCountsString);
-        $appointCount = 155;
+        $appointmentCountsString = array_map(function ($date) {
+            return $date->format('Y-m-d H:i:s');
+        }, $appoints);
+        $appointmentCounts       = array_count_values($appointmentCountsString);
+        $appointCount            = 155;
 
         $this->assertEquals($appointmentCounts['2021-02-23 14:00:00'], 1);
         $this->assertEquals($appointmentCounts['2021-02-24 14:00:00'], 1);

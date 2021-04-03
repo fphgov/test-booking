@@ -12,7 +12,6 @@ use App\Repository\AppointmentRepository;
 use App\Repository\PlaceRepository;
 use AppTest\AbstractServiceTest;
 use DateTime;
-use DateInterval;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use DoctrineFixture\ApplicantDataLoader;
 use DoctrineFixture\AppointmentDataLoader;
