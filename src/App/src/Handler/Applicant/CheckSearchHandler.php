@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-final class SearchHandler implements RequestHandlerInterface
+final class CheckSearchHandler implements RequestHandlerInterface
 {
     /** @var ApplicantServiceInterface */
     private $applicantService;
@@ -29,7 +29,7 @@ final class SearchHandler implements RequestHandlerInterface
         $routeResult = $request->getAttribute(RouteResult::class);
         $search      = $routeResult->getMatchedParams()['search'];
 
-        $applicants = $applicantRepository->quickAdvancedSearch($search);
+        $applicants = $applicantRepository->quickSearch($search);
 
         return new JsonResponse([
             'data' => $applicants,

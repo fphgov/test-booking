@@ -45,6 +45,7 @@ class ConfigProvider
                 Handler\Applicant\GetAllHandler::class        => Handler\Applicant\GetAllHandlerFactory::class,
                 Handler\Applicant\PostHandler::class          => Handler\Applicant\PostHandlerFactory::class,
                 Handler\Applicant\SearchHandler::class        => Handler\Applicant\SearchHandlerFactory::class,
+                Handler\Applicant\CheckSearchHandler::class => Handler\Applicant\CheckSearchHandlerFactory::class,
                 Handler\Applicant\DelHandler::class           => Handler\Applicant\DelHandlerFactory::class,
                 Handler\Applicant\ExportHandler::class        => Handler\Applicant\ExportHandlerFactory::class,
                 Handler\Applicant\CancellationHandler::class  => Handler\Applicant\CancellationHandlerFactory::class,

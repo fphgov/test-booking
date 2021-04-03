@@ -125,7 +125,7 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         Jwt\Handler\JwtAuthMiddleware::class,
         App\Middleware\UserMiddleware::class,
         \Mezzio\Authorization\AuthorizationMiddleware::class,
-        App\Handler\Applicant\SearchHandler::class
+        App\Handler\Applicant\CheckSearchHandler::class
     ], 'admin.api.check.search');
 
     $app->get('/admin/api/check/{humanId:[\w]{2}-[\d]{5}}', [

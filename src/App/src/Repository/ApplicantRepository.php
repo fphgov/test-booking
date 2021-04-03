@@ -39,6 +39,31 @@ final class ApplicantRepository extends EntityRepository implements ApplicantRep
         return $applicants;
     }
 
+    /** @return Applicant[] */
+    public function quickAdvancedSearch(string $search)
+    {
+        $input        = preg_quote($search, '~');
+        $allApplicant = $this->findAll();
+
+        $applicants = [];
+        foreach ($allApplicant as $applicant) {
+            $fields = [
+                $applicant->getHumanId(),
+                $applicant->getEmail(),
+                $applicant->getFirstname(),
+                $applicant->getLastname(),
+                $applicant->getPhone(),
+                $applicant->getTaj(),
+            ];
+
+            if (preg_grep('~' . $input . '~', $fields)) {
+                $applicants[] = $applicant;
+            }
+        }
+
+        return $applicants;
+    }
+
     /** @return mixed|int */
     public function getCount()
     {
