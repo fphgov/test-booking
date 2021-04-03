@@ -6,6 +6,7 @@ namespace App\Repository;
 
 use App\Entity\Applicant;
 use App\Entity\Appointment;
+use App\Entity\Place;
 use App\Entity\Reservation;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
