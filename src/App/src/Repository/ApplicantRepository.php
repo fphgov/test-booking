@@ -12,6 +12,7 @@ use Doctrine\ORM\Query\Expr\Join;
 
 use function preg_grep;
 use function preg_quote;
+use function strtoupper;
 
 final class ApplicantRepository extends EntityRepository implements ApplicantRepositoryInterface
 {
@@ -24,14 +25,14 @@ final class ApplicantRepository extends EntityRepository implements ApplicantRep
         $applicants = [];
         foreach ($allApplicant as $applicant) {
             $fields = [
-                $applicant->getHumanId(),
-                $applicant->getEmail(),
-                $applicant->getFirstname(),
-                $applicant->getLastname(),
-                $applicant->getPhone(),
+                strtoupper($applicant->getHumanId()),
+                strtoupper($applicant->getEmail()),
+                strtoupper($applicant->getFirstname()),
+                strtoupper($applicant->getLastname()),
+                strtoupper($applicant->getPhone()),
             ];
 
-            if (preg_grep('~' . $input . '~', $fields)) {
+            if (preg_grep('~' . strtoupper($input) . '~', $fields)) {
                 $applicants[] = $applicant;
             }
         }
@@ -48,15 +49,15 @@ final class ApplicantRepository extends EntityRepository implements ApplicantRep
         $applicants = [];
         foreach ($allApplicant as $applicant) {
             $fields = [
-                $applicant->getHumanId(),
-                $applicant->getEmail(),
-                $applicant->getFirstname(),
-                $applicant->getLastname(),
-                $applicant->getPhone(),
-                $applicant->getTaj(),
+                strtoupper($applicant->getHumanId()),
+                strtoupper($applicant->getEmail()),
+                strtoupper($applicant->getFirstname()),
+                strtoupper($applicant->getLastname()),
+                strtoupper($applicant->getPhone()),
+                strtoupper($applicant->getTaj()),
             ];
 
-            if (preg_grep('~' . $input . '~', $fields)) {
+            if (preg_grep('~' . strtoupper($input) . '~', $fields)) {
                 $applicants[] = $applicant;
             }
         }
